@@ -7,7 +7,7 @@ import {
 
 const MainHeader = () => {
   return (
-    <header className='w-full px-5 h-16 flex justify-between items-center border-b border-zinc-700'>
+    <header className='w-full px-5 h-[66px] flex justify-between items-center border-b border-zinc-700'>
       <div className='basis-1/4'>
         <Bars3Icon className='h-6 w-6 text-white' />
       </div>
