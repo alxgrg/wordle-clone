@@ -8,11 +8,14 @@ import {
 const MainHeader = () => {
   return (
     <header className='w-full px-5 h-16 flex justify-between items-center border-b border-zinc-700'>
-      <div>
+      <div className='basis-1/4'>
         <Bars3Icon className='h-6 w-6 text-white' />
       </div>
-      <h1 className='font-serif font-extrabold text-3xl'>Wordle</h1>
-      <div className='flex'>
+      <div className='grow basis-1/2 text-center'>
+        <h1 className='font-serif font-extrabold text-3xl'>Wordle</h1>
+      </div>
+
+      <div className='flex basis-1/4 justify-end'>
         <button>
           <QuestionMarkCircleIcon className='h-6 w-6 text-white' />
         </button>

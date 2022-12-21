@@ -1,4 +1,6 @@
 import Head from 'next/head';
+import GameBoard from '../components/game-board/GameBoard';
+import Grid from '../components/game-board/Grid';
 import MainHeader from '../components/MainHeader';
 
 export default function Home() {
@@ -12,6 +14,7 @@ export default function Home() {
       </Head>
       <main>
         <MainHeader />
+        <GameBoard />
       </main>
     </>
   );
