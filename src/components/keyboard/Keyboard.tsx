@@ -1,4 +1,6 @@
 import { BackspaceIcon } from '@heroicons/react/24/outline';
+import { useEffect } from 'react';
+import { useKeyboard } from '../../hooks/useKeyboard';
 import Key from './Key';
 
 const rows = [
@@ -9,7 +11,7 @@ const rows = [
 
 const Keyboard = () => {
   return (
-    <div className='font-bold text-sm h-[200px]'>
+    <div className='font-bold text-sm h-[200px] mx-2'>
       <div className='flex mb-2'>
         {rows[0].map((letter) => (
           <Key key={letter}>{letter}</Key>
