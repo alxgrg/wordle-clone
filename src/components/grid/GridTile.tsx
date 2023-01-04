@@ -1,23 +1,31 @@
 type Props = {
   letter: string;
   status: string | undefined;
+  delay: number;
 };
 
-const GridTile = ({ letter, status }: Props) => {
+const GridTile = ({ letter, status, delay }: Props) => {
   let statusClasses;
   if (status === 'correct') {
-    statusClasses = 'bg-green-500';
+    statusClasses = 'correct';
   } else if (status === 'present') {
-    statusClasses = 'bg-yellow-500';
+    statusClasses = 'present';
   } else if (status === 'absent') {
-    statusClasses = 'bg-zinc-700';
+    statusClasses = 'absent';
   } else {
-    statusClasses = 'border-2 border-zinc-700';
+    statusClasses = 'border-zinc-700';
   }
   return (
-    <div className='block'>
+    <div
+      className={`block ${
+        letter && status === undefined ? 'animate-popIn' : ''
+      }`}
+    >
       <div
-        className={`before:pb-[100%] before:inline-block inline-flex w-full box-border text-[2rem] align-middle justify-center leading-4 uppercase font-bold items-center ${statusClasses}`}
+        style={{ animationDelay: ' ' + delay * 2 + '00ms' }}
+        className={`before:pb-[100%] before:inline-block inline-flex w-full box-border border-2 border-zinc-700 text-[2rem] align-middle justify-center leading-4 uppercase font-bold items-center ${statusClasses} ${
+          letter ? 'border-zinc-600' : 'border-zinc-700'
+        }`}
       >
         {letter}
       </div>

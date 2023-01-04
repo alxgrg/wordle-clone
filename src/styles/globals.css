@@ -26,6 +26,40 @@ a {
   text-decoration: none;
 }
 
-/* @keyframes FlipIn {
-  animation-duration: 250ms
-} 
+.correct {
+  --status: rgb(22 163 74);
+  animation: flip 500ms ease forwards;
+}
+
+.present {
+  --status: rgb(234 179 8);
+  animation: flip 500ms ease forwards;
+}
+
+.absent {
+  --status: rgb(63 63 70);
+  animation: flip 500ms ease forwards;
+}
+
+@keyframes flip {
+  0% {
+    @apply bg-zinc-900;
+    @apply border-zinc-700;
+    transform: rotateX(0);
+  }
+  45% {
+    @apply bg-zinc-900;
+    @apply border-zinc-700;
+    transform: rotateX(90deg);
+  }
+  55% {
+    transform: rotateX(90deg);
+    border-color: var(--status);
+    background: var(--status);
+  }
+  100% {
+    transform: rotateX(0);
+    border-color: var(--status);
+    background: var(--status);
+  }
+}
