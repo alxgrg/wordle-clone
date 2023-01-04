@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 export const useKeyboard = (answer: string) => {
   const [currentGuess, setCurrentGuess] = useState('');
@@ -14,32 +14,39 @@ export const useKeyboard = (answer: string) => {
     let answerArr = answer.split('');
     let filteredAnswer = answer.split('');
 
-    for (let i = 0; i < guessArr.length; i++) {
+    // Set correct letters
+    for (let i = guessArr.length - 1; i >= 0; i--) {
       const guessLetter = guessArr[i];
       const answerLetter = answerArr[i];
-      let updatedEvaluations = evaluations;
-
-      // if letter is correct
       if (guessLetter === answerLetter) {
-        updatedEvaluations[currentRowIndex][i] = 'correct';
+        let newEvaluations = evaluations;
+        newEvaluations[currentRowIndex][i] = 'correct';
+        setEvaluations(newEvaluations);
+        // remove correctly guess letter for later comparison
         filteredAnswer.splice(i, 1);
-      } else if (
-        filteredAnswer.findIndex((letter) => letter === guessLetter) !== -1
-      ) {
-        console.log(
-          'isPresent: ',
-          guessLetter,
-          filteredAnswer,
-          filteredAnswer.findIndex((letter) => letter === guessLetter)
-        );
+      }
+    }
+    console.log('filteredAnswer: ', filteredAnswer);
 
-        const removeIndex = filteredAnswer.findIndex(
-          (letter) => letter === guessLetter
-        );
-        filteredAnswer.splice(removeIndex, 1);
-        updatedEvaluations[currentRowIndex][i] = 'present';
-      } else {
-        updatedEvaluations[currentRowIndex][i] = 'absent';
+    // Set present letters
+    for (let i = 0; i < guessArr.length; i++) {
+      const guessLetter = guessArr[i]; // current guess letter
+
+      // check if letter has already been guessed correctly
+      if (evaluations[currentRowIndex][i] !== 'correct') {
+        // check if guess letter is in remaining letters
+        if (
+          filteredAnswer.filter((letter) => letter === guessLetter).length > 0
+        ) {
+          let newEvaluations = evaluations;
+          newEvaluations[currentRowIndex][i] = 'present';
+          setEvaluations(newEvaluations);
+        } else {
+          // else set to absent
+          let newEvaluations = evaluations;
+          newEvaluations[currentRowIndex][i] = 'absent';
+          setEvaluations(newEvaluations);
+        }
       }
     }
   };
@@ -63,7 +70,6 @@ export const useKeyboard = (answer: string) => {
     if (/^[A-Za-z]$/.test(key)) {
       setCurrentGuess((prev) => prev + key);
     }
-    // setCurrentGuess((prev) => prev + key);
   };
 
   return { handleKeyDown, currentGuess, board, currentRowIndex, evaluations };
