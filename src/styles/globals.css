@@ -26,6 +26,13 @@ a {
   text-decoration: none;
 }
 
+.win {
+  --status: rgb(22 163 74);
+  animation: bounce 1000ms ease forwards;
+  @apply bg-green-600;
+  @apply border-green-600;
+}
+
 .correct {
   --status: rgb(22 163 74);
   animation: flip 500ms ease forwards;
@@ -59,6 +66,40 @@ a {
   }
   100% {
     transform: rotateX(0);
+    border-color: var(--status);
+    background: var(--status);
+  }
+}
+
+@keyframes bounce {
+  0%,
+  20% {
+    transform: translateY(0);
+    border-color: var(--status);
+    background: var(--status);
+  }
+  40% {
+    transform: translateY(-30px);
+    border-color: var(--status);
+    background: var(--status);
+  }
+  50% {
+    transform: translateY(5px);
+    border-color: var(--status);
+    background: var(--status);
+  }
+  60% {
+    transform: translateY(-15px);
+    border-color: var(--status);
+    background: var(--status);
+  }
+  80% {
+    transform: translateY(2px);
+    border-color: var(--status);
+    background: var(--status);
+  }
+  100% {
+    transform: translateY(0);
     border-color: var(--status);
     background: var(--status);
   }

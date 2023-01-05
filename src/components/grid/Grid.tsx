@@ -67,6 +67,7 @@ type Props = {
   evaluations: (string | undefined)[][];
   board: string[];
   error: string | null;
+  gameState: string;
 };
 
 const Grid = ({
@@ -75,11 +76,12 @@ const Grid = ({
   currentRowIndex,
   evaluations,
   error,
+  gameState,
 }: Props) => {
   const gridRef = useRef(null);
   const dimensions = useResizeGrid(gridRef);
 
-  console.log(currentGuess);
+  // console.log(currentGuess);
 
   return (
     <div
@@ -105,10 +107,18 @@ const Grid = ({
                 guess={currentGuess}
                 evaluations={evaluations[i]}
                 error={error}
+                gameState={gameState}
               />
             );
           }
-          return <GridRow key={i} guess={row} evaluations={evaluations[i]} />;
+          return (
+            <GridRow
+              key={i}
+              guess={row}
+              evaluations={evaluations[i]}
+              gameState={gameState}
+            />
+          );
         })}
       </div>
     </div>

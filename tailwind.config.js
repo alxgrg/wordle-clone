@@ -17,8 +17,6 @@ module.exports = {
             opacity: '1',
           },
         },
-      },
-      keyframes: {
         shake: {
           '10%, 90%': {
             transform: 'translateX(-1px)',
@@ -33,9 +31,30 @@ module.exports = {
             transform: 'translateX(4px)',
           },
         },
+        bounce: {
+          '0%, 20%': {
+            transform: 'translateY(0)',
+          },
+          '40%': {
+            transform: 'translateY(-30px)',
+          },
+          '50%': {
+            transform: 'translateY(5px)',
+          },
+          '60%': {
+            transform: 'translateY(-15px)',
+          },
+          '80%': {
+            transform: 'translateY(2px)',
+          },
+          '100%': {
+            transform: 'translateY(0)',
+          },
+        },
       },
       animation: {
         shake: 'shake 600ms',
+        popIn: 'popIn 100ms ease-in forwards',
       },
     },
   },

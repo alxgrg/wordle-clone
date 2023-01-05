@@ -5,6 +5,7 @@ export const useKeyboard = (answer: string) => {
   const [board, setBoard] = useState(['', '', '', '', '', '']);
   const [error, setError] = useState<string | null>(null);
   const [gameState, setGameState] = useState('active');
+  const [isRevealing, setIsRevealing] = useState(false);
 
   const [currentRowIndex, setCurrentRowIndex] = useState(0);
   const [evaluations, setEvaluations] = useState<(string | undefined)[][]>(
@@ -12,13 +13,25 @@ export const useKeyboard = (answer: string) => {
   );
 
   useEffect(() => {
+    let timer: ReturnType<typeof setTimeout>;
     if (error) {
-      const timer = setTimeout(() => setError(null), 2000);
-      return () => {
-        clearTimeout(timer);
-      };
+      timer = setTimeout(() => setError(null), 2000);
     }
+    return () => {
+      clearTimeout(timer);
+    };
   }, [error]);
+
+  // Set isRevealing timer
+  useEffect(() => {
+    let timer: ReturnType<typeof setTimeout>;
+    if (isRevealing) {
+      timer = setTimeout(() => setIsRevealing(false), 1300);
+    }
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [isRevealing]);
 
   useEffect(() => {
     if (currentRowIndex > 5) {
@@ -53,7 +66,7 @@ export const useKeyboard = (answer: string) => {
       setGameState('win');
       return;
     }
-    console.log('filteredAnswer: ', filteredAnswer);
+    // console.log('filteredAnswer: ', filteredAnswer);
 
     // Set present letters
     for (let i = 0; i < guessArr.length; i++) {
@@ -83,6 +96,12 @@ export const useKeyboard = (answer: string) => {
     if (gameState !== 'active') {
       return;
     }
+    // Check game state
+    if (isRevealing) {
+      console.log('revealing');
+
+      return;
+    }
     const key = event.key.toUpperCase();
 
     if (key === 'BACKSPACE' && currentGuess.length > 0) {
@@ -94,6 +113,7 @@ export const useKeyboard = (answer: string) => {
         setError('Not enough letters');
         return;
       }
+      setIsRevealing(true);
       let updatedBoard = board;
       updatedBoard[currentRowIndex] = currentGuess;
       evaluateGuess(currentGuess);
@@ -107,12 +127,15 @@ export const useKeyboard = (answer: string) => {
     }
   };
 
-  return {
+  const gameData = {
     handleKeyDown,
     currentGuess,
     board,
     currentRowIndex,
     evaluations,
     error,
+    gameState,
   };
+
+  return gameData;
 };

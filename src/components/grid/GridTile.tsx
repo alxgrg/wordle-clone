@@ -1,20 +1,32 @@
+import { useEffect, useState } from 'react';
+
 type Props = {
   letter: string;
   status: string | undefined;
   delay: number;
+  isWinner: boolean;
 };
 
-const GridTile = ({ letter, status, delay }: Props) => {
-  let statusClasses;
-  if (status === 'correct') {
-    statusClasses = 'correct';
-  } else if (status === 'present') {
-    statusClasses = 'present';
-  } else if (status === 'absent') {
-    statusClasses = 'absent';
-  } else {
-    statusClasses = 'border-zinc-700';
-  }
+const GridTile = ({ letter, status, delay, isWinner }: Props) => {
+  const [statusClasses, setStatusClasses] = useState(status);
+
+  useEffect(() => {
+    setStatusClasses(status);
+  }, [status]);
+
+  useEffect(() => {
+    let timer: ReturnType<typeof setTimeout>;
+    if (isWinner) {
+      timer = setTimeout(() => {
+        setStatusClasses('win');
+      }, 1300);
+    }
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [isWinner]);
+
   return (
     <div
       className={`block ${
@@ -23,9 +35,9 @@ const GridTile = ({ letter, status, delay }: Props) => {
     >
       <div
         style={{ animationDelay: ' ' + delay * 2 + '00ms' }}
-        className={`before:pb-[100%] before:inline-block inline-flex w-full box-border border-2 border-zinc-700 text-[2rem] align-middle justify-center leading-4 uppercase font-bold items-center ${statusClasses} ${
-          letter ? 'border-zinc-600' : 'border-zinc-700'
-        }`}
+        className={`before:pb-[100%] before:inline-block inline-flex w-full box-border border-2 border-zinc-700 text-[2rem] align-middle justify-center leading-4 uppercase font-bold items-center ${
+          statusClasses ? statusClasses : 'border-zinc-700'
+        } ${letter ? 'border-zinc-600' : 'border-zinc-700'}`}
       >
         {letter}
       </div>
