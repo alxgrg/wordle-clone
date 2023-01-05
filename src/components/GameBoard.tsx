@@ -39,8 +39,14 @@ import Keyboard from './keyboard/Keyboard';
 const answer = 'TROLL';
 
 const GameBoard = () => {
-  const { handleKeyDown, currentGuess, board, currentRowIndex, evaluations } =
-    useKeyboard(answer);
+  const {
+    handleKeyDown,
+    currentGuess,
+    board,
+    currentRowIndex,
+    evaluations,
+    error,
+  } = useKeyboard(answer);
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
 
@@ -56,6 +62,7 @@ const GameBoard = () => {
         board={board}
         evaluations={evaluations}
         currentRowIndex={currentRowIndex}
+        error={error}
       />
 
       <Keyboard />

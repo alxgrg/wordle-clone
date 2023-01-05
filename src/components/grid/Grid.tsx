@@ -66,9 +66,16 @@ type Props = {
   currentRowIndex: number;
   evaluations: (string | undefined)[][];
   board: string[];
+  error: string | null;
 };
 
-const Grid = ({ currentGuess, board, currentRowIndex, evaluations }: Props) => {
+const Grid = ({
+  currentGuess,
+  board,
+  currentRowIndex,
+  evaluations,
+  error,
+}: Props) => {
   const gridRef = useRef(null);
   const dimensions = useResizeGrid(gridRef);
 
@@ -97,6 +104,7 @@ const Grid = ({ currentGuess, board, currentRowIndex, evaluations }: Props) => {
                 key={i}
                 guess={currentGuess}
                 evaluations={evaluations[i]}
+                error={error}
               />
             );
           }
