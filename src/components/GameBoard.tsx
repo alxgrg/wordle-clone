@@ -7,7 +7,8 @@ import Keyboard from './keyboard/Keyboard';
 
 const answer =
   solutionsList[Math.floor(Math.random() * (2315 - 0 + 1))].toUpperCase();
-// const answer = 'TROLL';
+
+// const answer = 'SAUTE';
 console.log('answer: ', answer);
 
 const GameBoard = () => {

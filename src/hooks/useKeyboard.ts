@@ -62,10 +62,14 @@ export const useKeyboard = (answer: string) => {
   }, [isRevealing]);
 
   useEffect(() => {
+    let timer: ReturnType<typeof setTimeout>;
     if (currentRowIndex > 5) {
       setGameState('loss');
-      setMessage(answer);
+      timer = setTimeout(() => setMessage(answer), 1300);
     }
+    return () => {
+      clearTimeout(timer);
+    };
   }, [answer, currentRowIndex]);
 
   const addLetter = (guessLetter: string, status: string) => {
@@ -132,6 +136,11 @@ export const useKeyboard = (answer: string) => {
           let newEvaluations = evaluations;
           newEvaluations[currentRowIndex][i] = 'present';
           setEvaluations(newEvaluations);
+          // remove letter from possible present letters
+          filteredAnswer = filteredAnswer.filter(
+            (letter) => letter !== guessLetter
+          );
+          console.log('filteredanswer: ', filteredAnswer);
         } else {
           // else set to absent
           addLetter(guessLetter, 'absent');
