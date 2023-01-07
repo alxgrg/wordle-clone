@@ -5,31 +5,41 @@ export type LetterStatus = {
   [letter: string]: string;
 };
 
+const winMessages = [
+  'Genius',
+  'Magnificent',
+  'Impressive',
+  'Splendid',
+  'Great',
+  'Phew',
+];
+
 export const useKeyboard = (answer: string) => {
   const [currentGuess, setCurrentGuess] = useState('');
   const [board, setBoard] = useState(['', '', '', '', '', '']);
   const [error, setError] = useState<string | null>(null);
   const [gameState, setGameState] = useState('active');
   const [isRevealing, setIsRevealing] = useState(false);
+  const [message, setMessage] = useState('');
 
   const [currentRowIndex, setCurrentRowIndex] = useState(0);
   const [evaluations, setEvaluations] = useState<(string | undefined)[][]>(
     [...Array(6)].map((e) => Array(5))
   );
 
-  // type LetterStatus = {
-  //   correct: string[];
-  //   present: string[];
-  //   absent: string[];
-  // };
-  // const [letterStatus, setLetterStatus] = useState<LetterStatus>({
-  //   correct: [],
-  //   present: [],
-  //   absent: [],
-  // });
-
   const [letterStatus, setLetterStatus] = useState<LetterStatus>({});
+  // Set message timeout
+  useEffect(() => {
+    let timer: ReturnType<typeof setTimeout>;
+    if (message && gameState !== 'loss') {
+      timer = setTimeout(() => setMessage(''), 3000);
+    }
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [gameState, message]);
 
+  // Set error timeout
   useEffect(() => {
     let timer: ReturnType<typeof setTimeout>;
     if (error) {
@@ -54,24 +64,9 @@ export const useKeyboard = (answer: string) => {
   useEffect(() => {
     if (currentRowIndex > 5) {
       setGameState('loss');
+      setMessage(answer);
     }
-  }, [currentRowIndex]);
-
-  // const addLetter = (guessLetter: string, status: string) => {
-  //   // set letter status for keyboard
-  //   let tempLetterStatus = { ...letterStatus };
-  //   if (!letterStatus.correct.includes(guessLetter)) {
-  //     tempLetterStatus[status as keyof LetterStatus].push(guessLetter);
-  //     let uniqueChars: string[] = [];
-  //     tempLetterStatus[status as keyof LetterStatus].forEach((c) => {
-  //       if (!uniqueChars.includes(c)) {
-  //         uniqueChars.push(c);
-  //       }
-  //     });
-  //     tempLetterStatus[status as keyof LetterStatus] = uniqueChars;
-  //     setLetterStatus(tempLetterStatus);
-  //   }
-  // };
+  }, [answer, currentRowIndex]);
 
   const addLetter = (guessLetter: string, status: string) => {
     let tempLetterStatus = letterStatus;
@@ -116,6 +111,8 @@ export const useKeyboard = (answer: string) => {
     // Check if guess is correct
     if (guess === answer) {
       setGameState('win');
+      setTimeout(() => setMessage(winMessages[currentRowIndex]), 1300);
+
       return;
     }
     // console.log('filteredAnswer: ', filteredAnswer);
@@ -195,6 +192,7 @@ export const useKeyboard = (answer: string) => {
     currentRowIndex,
     evaluations,
     error,
+    message,
     gameState,
     letterStatus,
   };
