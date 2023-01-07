@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { wordList } from '../static/wordlist';
+import { wordList } from '../static/wordList';
+import satisfiesHardMode from '../lib/satisfiesHardMode';
 
 export type LetterStatus = {
   [letter: string]: string;
@@ -178,6 +179,21 @@ export const useKeyboard = (answer: string) => {
       // Check if guess is in word list
       if (!wordList.includes(currentGuess.toLocaleLowerCase())) {
         setError('Not in word list');
+        return;
+      }
+
+      // check if satisfies hard mode
+      if (
+        satisfiesHardMode({ evaluations, previousGuesses: board, currentGuess })
+          ?.message
+      ) {
+        setError(
+          satisfiesHardMode({
+            evaluations,
+            previousGuesses: board,
+            currentGuess,
+          })?.message!
+        );
         return;
       }
       setIsRevealing(true);

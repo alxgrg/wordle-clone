@@ -36,6 +36,7 @@ const GameBoard = () => {
   return (
     <GameContext.Provider value={{ error, gameState }}>
       <div className='flex flex-col w-full max-w-[500px] m-auto h-[calc(100%-64px)]'>
+        {/* Answer - {answer} */}
         <div className='absolute top[10%] left-1/2 translate-x-[-50%] w-auto inline-block z-50'>
           {(error || message) && (
             <div className='relative m-4 p-4 rounded text-black font-bold bg-white'>
@@ -43,7 +44,6 @@ const GameBoard = () => {
             </div>
           )}
         </div>
-
         <Grid
           currentGuess={currentGuess}
           board={board}
@@ -52,7 +52,6 @@ const GameBoard = () => {
           error={error}
           gameState={gameState}
         />
-
         <Keyboard letterStatus={letterStatus} />
       </div>
     </GameContext.Provider>

@@ -35,17 +35,21 @@ a {
 
 .correct {
   --status: #538d4e;
-  animation: flip 500ms ease forwards;
+  /* animation: flip 250ms ease forwards; */
+
+  animation: FlipIn 250ms ease-in forwards, FlipOut 250ms ease-in 250ms forwards;
 }
 
 .present {
   --status: #b59f3b;
-  animation: flip 500ms ease forwards;
+  /* animation: flip 500ms ease forwards; */
+  animation: FlipIn 250ms ease-in forwards, FlipOut 250ms ease-in 250ms forwards;
 }
 
 .absent {
   --status: rgb(63 63 70);
-  animation: flip 500ms ease forwards;
+  /* animation: flip 500ms ease forwards; */
+  animation: FlipIn 250ms ease-in forwards, FlipOut 250ms ease-in 250ms forwards;
 }
 
 @keyframes flip {
@@ -102,5 +106,31 @@ a {
     transform: translateY(0);
     border-color: var(--status);
     background: var(--status);
+  }
+}
+
+@keyframes FlipIn {
+  0% {
+    /* @apply bg-custom-black;
+    @apply border-zinc-700; */
+    transform: rotateX(0);
+  }
+  100% {
+    /* @apply bg-custom-black;
+    @apply border-zinc-700; */
+    transform: rotateX(-90deg);
+  }
+}
+
+@keyframes FlipOut {
+  0% {
+    border-color: var(--status);
+    background: var(--status);
+    transform: rotateX(-90deg);
+  }
+  100% {
+    border-color: var(--status);
+    background: var(--status);
+    transform: rotateX(0);
   }
 }
