@@ -6,6 +6,12 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        'custom-black': '#121213',
+        'custom-green': '#538d4e',
+        'custom-yellow': '#b59f3b',
+        'custom-gray': 'rgb(63 63 70)',
+      },
       keyframes: {
         popIn: {
           from: {

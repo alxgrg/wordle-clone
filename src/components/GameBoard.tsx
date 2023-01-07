@@ -1,4 +1,4 @@
-import { createContext, useEffect } from 'react';
+import { useEffect } from 'react';
 import { GameContext } from '../context/GameContext';
 import { useKeyboard } from '../hooks/useKeyboard';
 import Grid from './grid/Grid';
@@ -15,6 +15,7 @@ const GameBoard = () => {
     evaluations,
     error,
     gameState,
+    letterStatus,
   } = useKeyboard(answer);
 
   useEffect(() => {
@@ -37,7 +38,7 @@ const GameBoard = () => {
           gameState={gameState}
         />
 
-        <Keyboard />
+        <Keyboard letterStatus={letterStatus} />
       </div>
     </GameContext.Provider>
   );

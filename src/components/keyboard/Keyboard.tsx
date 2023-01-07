@@ -1,6 +1,6 @@
 import { BackspaceIcon } from '@heroicons/react/24/outline';
 import { useEffect } from 'react';
-import { useKeyboard } from '../../hooks/useKeyboard';
+import { LetterStatus, useKeyboard } from '../../hooks/useKeyboard';
 import Key from './Key';
 
 const rows = [
@@ -9,25 +9,33 @@ const rows = [
   ['Z', 'X', 'C', 'V', 'B', 'N', 'M'],
 ];
 
-const Keyboard = () => {
+const Keyboard = ({ letterStatus }: { letterStatus: LetterStatus }) => {
   return (
     <div className='font-bold text-sm h-[200px] mx-2'>
       <div className='flex mb-2'>
-        {rows[0].map((letter) => (
-          <Key key={letter}>{letter}</Key>
-        ))}
+        {rows[0].map((letter) => {
+          return (
+            <Key key={letter} status={letterStatus[letter]}>
+              {letter}
+            </Key>
+          );
+        })}
       </div>
       <div className='flex mb-2'>
         <div className='grow-[0.5]' />
         {rows[1].map((letter) => (
-          <Key key={letter}>{letter}</Key>
+          <Key key={letter} status={letterStatus[letter]}>
+            {letter}
+          </Key>
         ))}
         <div className='grow-[0.5]' />
       </div>
       <div className='flex'>
         <Key classes='text-xs'>ENTER</Key>
         {rows[2].map((letter) => (
-          <Key key={letter}>{letter}</Key>
+          <Key key={letter} status={letterStatus[letter]}>
+            {letter}
+          </Key>
         ))}
 
         <Key>
