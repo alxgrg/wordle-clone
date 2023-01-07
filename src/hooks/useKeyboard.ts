@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { wordList } from '../static/wordlist';
 
 export type LetterStatus = {
   [letter: string]: string;
@@ -92,11 +93,6 @@ export const useKeyboard = (answer: string) => {
   };
 
   const evaluateGuess = (guess: string) => {
-    // Check if guess is correct
-    // if (guess === answer) {
-    //   setGameState('win');
-    //   return;
-    // }
     let guessArr = guess.split('');
     let answerArr = answer.split('');
     let filteredAnswer = answer.split('');
@@ -169,8 +165,13 @@ export const useKeyboard = (answer: string) => {
       return;
     }
     if (key === 'ENTER') {
-      if (currentGuess.length < 5) {
+      if (currentGuess.length !== 5) {
         setError('Not enough letters');
+        return;
+      }
+      // Check if guess is in word list
+      if (!wordList.includes(currentGuess.toLocaleLowerCase())) {
+        setError('Not in word list');
         return;
       }
       setIsRevealing(true);
