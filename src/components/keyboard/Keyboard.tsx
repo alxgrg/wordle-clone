@@ -15,7 +15,7 @@ const Keyboard = ({ letterStatus }: { letterStatus: LetterStatus }) => {
       <div className='flex mb-2'>
         {rows[0].map((letter) => {
           return (
-            <Key key={letter} status={letterStatus[letter]}>
+            <Key key={letter} status={letterStatus[letter]} value={letter}>
               {letter}
             </Key>
           );
@@ -24,21 +24,23 @@ const Keyboard = ({ letterStatus }: { letterStatus: LetterStatus }) => {
       <div className='flex mb-2'>
         <div className='grow-[0.5]' />
         {rows[1].map((letter) => (
-          <Key key={letter} status={letterStatus[letter]}>
+          <Key key={letter} status={letterStatus[letter]} value={letter}>
             {letter}
           </Key>
         ))}
         <div className='grow-[0.5]' />
       </div>
       <div className='flex'>
-        <Key classes='text-xs'>ENTER</Key>
+        <Key classes='text-xs' value='ENTER'>
+          ENTER
+        </Key>
         {rows[2].map((letter) => (
-          <Key key={letter} status={letterStatus[letter]}>
+          <Key key={letter} status={letterStatus[letter]} value={letter}>
             {letter}
           </Key>
         ))}
 
-        <Key>
+        <Key value='BACKSPACE'>
           <BackspaceIcon className='h-6 w-6 text-white' />
         </Key>
       </div>

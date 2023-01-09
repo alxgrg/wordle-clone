@@ -1,19 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { GameContext } from '../context/GameContext';
 import { useKeyboard } from '../hooks/useKeyboard';
-import { solutionsList } from '../static/solutionsList';
 import Grid from './grid/Grid';
 import Keyboard from './keyboard/Keyboard';
 
-const startDate = new Date(2023, 1, 8);
-
-const answer =
-  solutionsList[Math.floor(Math.random() * (2315 - 0 + 1))].toUpperCase();
-
-// const answer = 'SAUTE';
-
 const GameBoard = () => {
-  const [delayedMessage, setDelayedMessage] = useState('');
   const {
     handleKeyDown,
     handleLetterInput,
@@ -29,6 +20,7 @@ const GameBoard = () => {
   } = useKeyboard();
   console.log('answer: ', answer);
 
+  // Listen for keydown
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
 
@@ -40,7 +32,6 @@ const GameBoard = () => {
   return (
     <GameContext.Provider value={{ error, gameState, handleLetterInput }}>
       <div className='flex flex-col w-full max-w-[500px] m-auto h-[calc(100%-64px)]'>
-        {/* Answer - {answer} */}
         <div className='absolute top[10%] left-1/2 translate-x-[-50%] w-auto inline-block z-50'>
           {(error || message) && (
             <div className='relative m-4 p-4 rounded text-black font-bold bg-white'>
