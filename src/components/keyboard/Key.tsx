@@ -20,7 +20,7 @@ const Key = ({
       } else if (status === 'absent') {
         setStatusClasses('bg-custom-gray');
       }
-    }, 1300);
+    }, 1800);
 
     return () => {
       clearTimeout(timer);

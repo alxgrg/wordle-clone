@@ -57,10 +57,36 @@ module.exports = {
             transform: 'translateY(0)',
           },
         },
+        flipIn: {
+          '0%': {
+            /* @apply bg-custom-black;
+            @apply border-zinc-700; */
+            transform: 'rotateX(0)',
+          },
+          '100%': {
+            /* @apply bg-custom-black;
+            @apply border-zinc-700; */
+            transform: 'rotateX(-90deg)',
+          },
+        },
+        flipOut: {
+          '0%': {
+            borderColor: 'var(--status)',
+            background: 'var(--status)',
+            transform: 'rotateX(-90deg)',
+          },
+          '100%': {
+            borderColor: 'var(--status)',
+            background: 'var(--status)',
+            transform: 'rotateX(0)',
+          },
+        },
       },
       animation: {
         shake: 'shake 600ms',
         popIn: 'popIn 100ms ease-in forwards',
+        flipIn: 'flipIn 250ms ease-in forwards',
+        flipOut: 'flipOut 250ms ease-in forwards',
       },
     },
   },

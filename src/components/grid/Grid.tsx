@@ -89,38 +89,40 @@ const Grid = ({
       className='flex justify-center overflow-hidden grow items-center'
     >
       {/* current guess - {currentGuess} */}
-      <div
-        className={`grid grid-rows-6 gap-[5px] p-[10px]`}
-        style={{
-          width: dimensions.width + 'px',
-          height: dimensions.height + 'px',
-        }}
-      >
-        {/* {Array.from(Array(6)).map((row, i) => (
+      {dimensions.width > 0 && (
+        <div
+          className={`grid grid-rows-6 gap-[5px] p-[10px]`}
+          style={{
+            width: dimensions.width + 'px',
+            height: dimensions.height + 'px',
+          }}
+        >
+          {/* {Array.from(Array(6)).map((row, i) => (
           <GridRow key={i} />
         ))} */}
-        {board.map((row, i) => {
-          if (i === currentRowIndex) {
+          {board.map((row, i) => {
+            if (i === currentRowIndex) {
+              return (
+                <GridRow
+                  key={i}
+                  guess={currentGuess}
+                  evaluations={evaluations[i]}
+                  error={error}
+                  gameState={gameState}
+                />
+              );
+            }
             return (
               <GridRow
                 key={i}
-                guess={currentGuess}
+                guess={row}
                 evaluations={evaluations[i]}
-                error={error}
                 gameState={gameState}
               />
             );
-          }
-          return (
-            <GridRow
-              key={i}
-              guess={row}
-              evaluations={evaluations[i]}
-              gameState={gameState}
-            />
-          );
-        })}
-      </div>
+          })}
+        </div>
+      )}
     </div>
   );
 };

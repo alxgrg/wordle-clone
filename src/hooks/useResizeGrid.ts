@@ -1,7 +1,7 @@
 import { MutableRefObject, useEffect, useState } from 'react';
 
 export const useResizeGrid = (ref: MutableRefObject<HTMLDivElement | null>) => {
-  const [dimensions, setDimensions] = useState({ width: 350, height: 420 });
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   useEffect(() => {
     if (!ref.current) return;
     // Watch for element height change
