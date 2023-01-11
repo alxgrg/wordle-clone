@@ -1,16 +1,20 @@
-import { Evaluations } from '../hooks/useKeyboard';
+import { Evaluations, LetterStatus } from '../hooks/useKeyboard';
+import { datesAreOnSameDay, getDaysSinceStart } from './dateHelpers';
 
 export type GameState = {
   board: string[];
   evaluations: Evaluations;
   gameState: string;
   currentRowIndex: number;
+  letterStatus: LetterStatus;
   lastCompletedTs: number | null;
   lastPlayedTs: number | null;
 };
 
 // Get current date timestamp
 const currentDate = new Date().getTime();
+
+const daysSinceStart = getDaysSinceStart();
 
 // Remove single key/value pair from local storage
 export const removeItemFromLocalStorage = (key: string) => {
@@ -23,11 +27,14 @@ export const loadGame = () => {
   if (game) {
     const parsedGameState = JSON.parse(game) as GameState;
     // If last played timestamp is not current day clear guesses
-    if (
-      parsedGameState.lastPlayedTs !== null &&
-      parsedGameState.lastPlayedTs !== currentDate
-    ) {
-      clearLocalStorage();
+
+    if (parsedGameState.lastPlayedTs !== null) {
+      const lastPlayed = new Date(parsedGameState.lastPlayedTs);
+      const sameDay = datesAreOnSameDay(lastPlayed);
+      if (!sameDay) {
+        clearLocalStorage();
+        console.log('clearing local storage, not same day');
+      }
     }
     return parsedGameState;
   }

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { wordList } from '../static/wordList';
 import satisfiesHardMode from '../lib/satisfiesHardMode';
 import { solutionsList } from '../static/solutionsList';
@@ -52,19 +52,50 @@ export const useKeyboard = () => {
 
   const [letterStatus, setLetterStatus] = useState<LetterStatus>({});
 
+  const firstRender = useRef(true);
+
+  useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false;
+    }
+  }, []);
+
   useEffect(() => {
     // Update local storage
-    if (gameState === 'active') {
+    if (gameState === 'active' && board[0].length > 0) {
+      console.log('ghjfghjfghjgfhjfhgj');
+
       saveGame({
         board,
         evaluations,
         currentRowIndex,
         gameState,
+        letterStatus,
         lastPlayedTs: currentDate,
         lastCompletedTs: null,
       });
     }
-  }, [board, currentDate, currentRowIndex, evaluations, gameState]);
+  }, [
+    board,
+    currentDate,
+    currentRowIndex,
+    evaluations,
+    gameState,
+    letterStatus,
+  ]);
+
+  // If player has saved game in local storage initialize game state
+  useEffect(() => {
+    const savedGame = loadGame();
+
+    if (savedGame) {
+      setBoard(savedGame.board);
+      setCurrentRowIndex(savedGame.currentRowIndex);
+      setEvaluations(savedGame.evaluations);
+      setGameState(savedGame.gameState);
+      setLetterStatus(savedGame.letterStatus);
+    }
+  }, []);
 
   // Check local storage for returning player
   useEffect(() => {
@@ -75,25 +106,13 @@ export const useKeyboard = () => {
         evaluations,
         currentRowIndex,
         gameState,
+        letterStatus,
         lastCompletedTs: null,
         lastPlayedTs: null,
       });
       return;
     }
-  }, [board, currentRowIndex, evaluations, gameState]);
-
-  // If player has saved game in local storage initialize game state
-  useEffect(() => {
-    const savedGame = loadGame();
-
-    // console.log('board: ', savedGame.board);
-    if (savedGame) {
-      setBoard(savedGame.board);
-      setCurrentRowIndex(savedGame.currentRowIndex);
-      setEvaluations(savedGame.evaluations);
-      setGameState(savedGame.gameState);
-    }
-  }, []);
+  }, [board, currentRowIndex, evaluations, gameState, letterStatus]);
 
   // If game is over save game state to local storage
   useEffect(() => {
@@ -103,12 +122,20 @@ export const useKeyboard = () => {
         evaluations,
         currentRowIndex,
         gameState,
+        letterStatus,
         lastCompletedTs: currentDate,
         lastPlayedTs: currentDate,
       };
       saveGame(currentGameState);
     }
-  }, [board, currentDate, currentRowIndex, evaluations, gameState]);
+  }, [
+    board,
+    currentDate,
+    currentRowIndex,
+    evaluations,
+    gameState,
+    letterStatus,
+  ]);
 
   // Set message timeout
   useEffect(() => {

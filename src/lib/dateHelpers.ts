@@ -10,5 +10,13 @@ export const difference = currentDate.getTime() - startDate.getTime();
 
 // Get days since start date and subtract 1 for index
 export const daysSinceStart = Math.ceil(difference / (1000 * 3600 * 24)) - 1;
+export const getDaysSinceStart = () =>
+  Math.ceil(difference / (1000 * 3600 * 24)) - 1;
 
-console.log('days: ', daysSinceStart);
+const currentDay = currentDate.getDay();
+export const datesAreOnSameDay = (lastPlayed: Date) =>
+  currentDate.getFullYear() === lastPlayed.getFullYear() &&
+  currentDate.getMonth() === lastPlayed.getMonth() &&
+  currentDate.getDate() === lastPlayed.getDate();
+
+// console.log('datesAreOnSameDay: ', datesAreOnSameDay(currentDate));
