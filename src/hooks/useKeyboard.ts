@@ -3,7 +3,7 @@ import { wordList } from '../static/wordList';
 import satisfiesHardMode from '../lib/satisfiesHardMode';
 import { loadGame, saveToLocalStorage } from '../lib/localStorage';
 import { getSolution } from '../lib/getSolution';
-import { getStats } from '../lib/getStats';
+import { getStats, Statistics } from '../lib/getStats';
 
 export type LetterStatus = {
   [letter: string]: string;
@@ -20,6 +20,16 @@ const winMessages = [
 
 export type Evaluations = (string | undefined)[][];
 
+const initialStats = {
+  currentStreak: 0,
+  maxStreak: 0,
+  guesses: { '1': 0, '2': 0, '3': 0, '4': 0, '5': 0, '6': 0, fail: 0 },
+  winPercentage: 0,
+  gamesPlayed: 0,
+  gamesWon: 0,
+  averageGuesses: 0,
+};
+
 export const useKeyboard = () => {
   const [currentGuess, setCurrentGuess] = useState('');
   const [board, setBoard] = useState(['', '', '', '', '', '']);
@@ -32,7 +42,9 @@ export const useKeyboard = () => {
     [...Array(6)].map((e) => Array(5))
   );
   const [letterStatus, setLetterStatus] = useState<LetterStatus>({});
-  const [statistics, setStatistics] = useState({});
+  const [statistics, setStatistics] = useState<Statistics>(initialStats);
+
+  console.log('statistics: ', statistics);
 
   // Get todays solution
   const answer = getSolution();
@@ -204,11 +216,9 @@ export const useKeyboard = () => {
         lastCompletedTs: currentDate,
       });
       // Check if statistics exist in local storage
-
-      localStorage.setItem(
-        'statistics',
-        getStats({ status: 'win', currentRowIndex })
-      );
+      const stats = getStats({ status: 'win', currentRowIndex });
+      setStatistics(stats);
+      localStorage.setItem('statistics', JSON.stringify(stats));
 
       setTimeout(
         () => setMessage(winMessages[currentRowIndex]),
@@ -262,16 +272,14 @@ export const useKeyboard = () => {
         lastPlayedTs: currentDate,
         lastCompletedTs: currentDate,
       });
-      // Check if statistics exist in local storage
-      localStorage.setItem(
-        'statistics',
-        getStats({ status: 'loss', currentRowIndex })
-      );
+      // Set statistics in state and save to local storage
+      const stats = getStats({ status: 'loss', currentRowIndex });
+      setStatistics(stats);
+      localStorage.setItem('statistics', JSON.stringify(stats));
     }
   };
 
-  console.log('letterStatus: ', letterStatus);
-
+  // Handle input from virtual keyboard
   const handleLetterInput = (input: string) => {
     setError('');
     // Check game state

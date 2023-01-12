@@ -1,8 +1,8 @@
 type Guesses = {
-  [key: string]: string;
+  [key: string]: number;
 };
 
-type Statistics = {
+export type Statistics = {
   currentStreak: number;
   maxStreak: number;
   guesses: Guesses;
@@ -58,5 +58,5 @@ export const getStats = ({
     (tempLocalStatistics.gamesWon / tempLocalStatistics.gamesPlayed) * 100;
   console.log('temploc', tempLocalStatistics);
 
-  return JSON.stringify(tempLocalStatistics);
+  return tempLocalStatistics;
 };
