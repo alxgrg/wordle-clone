@@ -32,7 +32,7 @@ export const loadGame = () => {
       const lastPlayed = new Date(parsedGameState.lastPlayedTs);
       const sameDay = datesAreOnSameDay(lastPlayed);
       if (!sameDay) {
-        clearLocalStorage();
+        removeItemFromLocalStorage('gameState');
         console.log('clearing local storage, not same day');
       }
     }
@@ -42,8 +42,8 @@ export const loadGame = () => {
 };
 
 // Save game to local storage
-export const saveGame = (gameState: GameState) => {
-  localStorage.setItem('gameState', JSON.stringify(gameState));
+export const saveToLocalStorage = <T>(key: string, state: T) => {
+  localStorage.setItem(key, JSON.stringify(state));
 };
 
 // Clear local storage entirely

@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { wordList } from '../static/wordList';
 import satisfiesHardMode from '../lib/satisfiesHardMode';
-import { solutionsList } from '../static/solutionsList';
-import { GameState, loadGame, saveGame } from '../lib/localStorage';
+import { loadGame, saveToLocalStorage } from '../lib/localStorage';
 import { getSolution } from '../lib/getSolution';
+import { getStats } from '../lib/getStats';
 
 export type LetterStatus = {
   [letter: string]: string;
@@ -27,19 +27,12 @@ export const useKeyboard = () => {
   const [gameState, setGameState] = useState('active');
   const [isRevealing, setIsRevealing] = useState(false);
   const [message, setMessage] = useState('');
-
   const [currentRowIndex, setCurrentRowIndex] = useState(0);
   const [evaluations, setEvaluations] = useState<Evaluations>(
     [...Array(6)].map((e) => Array(5))
   );
-
-  // Collect board state for local storage
-  // const boardState = {
-  //   board,
-  //   evaluations,
-  //   currentRowIndex,
-  //   gameState,
-  // };
+  const [letterStatus, setLetterStatus] = useState<LetterStatus>({});
+  const [statistics, setStatistics] = useState({});
 
   // Get todays solution
   const answer = getSolution();
@@ -48,9 +41,8 @@ export const useKeyboard = () => {
   const currentDate = new Date().getTime();
 
   // Duration of word revealing animation for delays
+  // const revealAnimationDuration = 1700;
   const revealAnimationDuration = 1700;
-
-  const [letterStatus, setLetterStatus] = useState<LetterStatus>({});
 
   const firstRender = useRef(true);
 
@@ -63,9 +55,7 @@ export const useKeyboard = () => {
   useEffect(() => {
     // Update local storage
     if (gameState === 'active' && board[0].length > 0) {
-      console.log('ghjfghjfghjgfhjfhgj');
-
-      saveGame({
+      saveToLocalStorage('gameState', {
         board,
         evaluations,
         currentRowIndex,
@@ -101,7 +91,7 @@ export const useKeyboard = () => {
   useEffect(() => {
     const savedGame = loadGame();
     if (!savedGame) {
-      saveGame({
+      saveToLocalStorage('gameState', {
         board,
         evaluations,
         currentRowIndex,
@@ -113,29 +103,6 @@ export const useKeyboard = () => {
       return;
     }
   }, [board, currentRowIndex, evaluations, gameState, letterStatus]);
-
-  // If game is over save game state to local storage
-  useEffect(() => {
-    if (gameState !== 'active') {
-      const currentGameState = {
-        board,
-        evaluations,
-        currentRowIndex,
-        gameState,
-        letterStatus,
-        lastCompletedTs: currentDate,
-        lastPlayedTs: currentDate,
-      };
-      saveGame(currentGameState);
-    }
-  }, [
-    board,
-    currentDate,
-    currentRowIndex,
-    evaluations,
-    gameState,
-    letterStatus,
-  ]);
 
   // Set message timeout
   useEffect(() => {
@@ -174,7 +141,6 @@ export const useKeyboard = () => {
   useEffect(() => {
     let timer: ReturnType<typeof setTimeout>;
     if (currentRowIndex > 5) {
-      setGameState('loss');
       timer = setTimeout(() => setMessage(answer), revealAnimationDuration);
     }
     return () => {
@@ -228,14 +194,22 @@ export const useKeyboard = () => {
     if (guess === answer) {
       setGameState('win');
       // Update local storage
-      // saveGame({
-      //   board,
-      //   evaluations,
-      //   currentRowIndex,
-      //   gameState,
-      //   lastPlayedTs: currentDate,
-      //   lastCompletedTs: currentDate,
-      // });
+      saveToLocalStorage('gameState', {
+        board,
+        evaluations,
+        currentRowIndex: currentRowIndex + 1,
+        gameState: 'win',
+        letterStatus,
+        lastPlayedTs: currentDate,
+        lastCompletedTs: currentDate,
+      });
+      // Check if statistics exist in local storage
+
+      localStorage.setItem(
+        'statistics',
+        getStats({ status: 'win', currentRowIndex })
+      );
+
       setTimeout(
         () => setMessage(winMessages[currentRowIndex]),
         revealAnimationDuration
@@ -259,10 +233,6 @@ export const useKeyboard = () => {
           let newEvaluations = evaluations;
           newEvaluations[currentRowIndex][i] = 'present';
           setEvaluations(newEvaluations);
-          // remove letter from possible present letters
-          // filteredAnswer = filteredAnswer.filter(
-          //   (letter) => letter !== guessLetter
-          // );
 
           // Remove first instance of present letter from possible letters
           const removeIndex = filteredAnswer.findIndex(
@@ -278,6 +248,25 @@ export const useKeyboard = () => {
           setEvaluations(newEvaluations);
         }
       }
+    }
+
+    // Check for losing condition
+    if (currentRowIndex === 5 && guess !== answer) {
+      setGameState('loss');
+      saveToLocalStorage('gameState', {
+        board,
+        evaluations,
+        currentRowIndex: currentRowIndex + 1,
+        gameState: 'loss',
+        letterStatus,
+        lastPlayedTs: currentDate,
+        lastCompletedTs: currentDate,
+      });
+      // Check if statistics exist in local storage
+      localStorage.setItem(
+        'statistics',
+        getStats({ status: 'loss', currentRowIndex })
+      );
     }
   };
 
