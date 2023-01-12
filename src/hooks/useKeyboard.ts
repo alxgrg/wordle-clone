@@ -9,6 +9,8 @@ export type LetterStatus = {
   [letter: string]: string;
 };
 
+export type Evaluations = (string | undefined)[][];
+
 const winMessages = [
   'Genius',
   'Magnificent',
@@ -17,8 +19,6 @@ const winMessages = [
   'Great',
   'Phew',
 ];
-
-export type Evaluations = (string | undefined)[][];
 
 const initialStats = {
   currentStreak: 0,
@@ -33,7 +33,7 @@ const initialStats = {
 export const useKeyboard = () => {
   const [currentGuess, setCurrentGuess] = useState('');
   const [board, setBoard] = useState(['', '', '', '', '', '']);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState('');
   const [gameState, setGameState] = useState('active');
   const [isRevealing, setIsRevealing] = useState(false);
   const [message, setMessage] = useState('');
@@ -53,7 +53,6 @@ export const useKeyboard = () => {
   const currentDate = new Date().getTime();
 
   // Duration of word revealing animation for delays
-  // const revealAnimationDuration = 1700;
   const revealAnimationDuration = 1700;
 
   const firstRender = useRef(true);
@@ -116,7 +115,7 @@ export const useKeyboard = () => {
     }
   }, [board, currentRowIndex, evaluations, gameState, letterStatus]);
 
-  // Set message timeout
+  // Set timer to clear message
   useEffect(() => {
     let timer: ReturnType<typeof setTimeout>;
     if (message && gameState !== 'loss') {
@@ -127,18 +126,18 @@ export const useKeyboard = () => {
     };
   }, [gameState, message]);
 
-  // Set error timeout
+  // Set timer to clear any error message
   useEffect(() => {
     let timer: ReturnType<typeof setTimeout>;
     if (error) {
-      timer = setTimeout(() => setError(null), 1800);
+      timer = setTimeout(() => setError(''), 1800);
     }
     return () => {
       clearTimeout(timer);
     };
   }, [error]);
 
-  // Set isRevealing timer
+  // Set timer to clear animation isRevealing state
   useEffect(() => {
     let timer: ReturnType<typeof setTimeout>;
     if (isRevealing) {
@@ -149,7 +148,7 @@ export const useKeyboard = () => {
     };
   }, [isRevealing]);
 
-  // Check for loss
+  // If game state is loss, set timer to display message after reveal animations are finished
   useEffect(() => {
     let timer: ReturnType<typeof setTimeout>;
     if (currentRowIndex > 5) {
@@ -160,8 +159,8 @@ export const useKeyboard = () => {
     };
   }, [answer, currentRowIndex]);
 
-  // Add letter status for keyboard colors
-  const addLetter = (guessLetter: string, status: string) => {
+  // Add letter status for coloring keyboard keys
+  const handleLetterStatus = (guessLetter: string, status: string) => {
     let tempLetterStatus = letterStatus;
     if (
       status === 'correct' &&
@@ -192,7 +191,7 @@ export const useKeyboard = () => {
       const answerLetter = answerArr[i];
       if (guessLetter === answerLetter) {
         // set letter status for keyboard
-        addLetter(guessLetter, 'correct');
+        handleLetterStatus(guessLetter, 'correct');
 
         // set evaluations
         let newEvaluations = evaluations;
@@ -202,6 +201,7 @@ export const useKeyboard = () => {
         filteredAnswer.splice(i, 1);
       }
     }
+
     // Check if guess is correct
     if (guess === answer) {
       setGameState('win');
@@ -215,11 +215,12 @@ export const useKeyboard = () => {
         lastPlayedTs: currentDate,
         lastCompletedTs: currentDate,
       });
-      // Check if statistics exist in local storage
+
       const stats = getStats({ status: 'win', currentRowIndex });
       setStatistics(stats);
       localStorage.setItem('statistics', JSON.stringify(stats));
 
+      // Set timer to display win message
       setTimeout(
         () => setMessage(winMessages[currentRowIndex]),
         revealAnimationDuration
@@ -239,7 +240,7 @@ export const useKeyboard = () => {
           filteredAnswer.filter((letter) => letter === guessLetter).length > 0
         ) {
           // set letter status
-          addLetter(guessLetter, 'present');
+          handleLetterStatus(guessLetter, 'present');
           let newEvaluations = evaluations;
           newEvaluations[currentRowIndex][i] = 'present';
           setEvaluations(newEvaluations);
@@ -252,7 +253,7 @@ export const useKeyboard = () => {
           console.log('filteredanswer: ', filteredAnswer);
         } else {
           // else set to absent
-          addLetter(guessLetter, 'absent');
+          handleLetterStatus(guessLetter, 'absent');
           let newEvaluations = evaluations;
           newEvaluations[currentRowIndex][i] = 'absent';
           setEvaluations(newEvaluations);
@@ -263,6 +264,7 @@ export const useKeyboard = () => {
     // Check for losing condition
     if (currentRowIndex === 5 && guess !== answer) {
       setGameState('loss');
+      // Save to local storage
       saveToLocalStorage('gameState', {
         board,
         evaluations,
@@ -288,10 +290,10 @@ export const useKeyboard = () => {
     }
     // Check game state
     if (isRevealing) {
-      console.log('revealing');
-
       return;
     }
+
+    // Make sure all input is uppercase before evaluating
     const key = input.toUpperCase();
 
     if (key === 'BACKSPACE' && currentGuess.length > 0) {
@@ -309,7 +311,8 @@ export const useKeyboard = () => {
         return;
       }
 
-      // check if satisfies hard mode
+      // TODO add hard mode state and toggle
+      // Check if satisfies hard mode
       if (
         satisfiesHardMode({ evaluations, previousGuesses: board, currentGuess })
           ?.message
@@ -319,7 +322,7 @@ export const useKeyboard = () => {
             evaluations,
             previousGuesses: board,
             currentGuess,
-          })?.message!
+          })?.message
         );
         return;
       }

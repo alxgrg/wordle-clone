@@ -54,6 +54,9 @@ const satisfiesHardMode = ({
       }
     }
   }
+  return {
+    message: '',
+  };
 };
 
 export default satisfiesHardMode;
