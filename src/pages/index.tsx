@@ -2,6 +2,7 @@ import Head from 'next/head';
 import GameBoard from '../components/GameBoard';
 import Grid from '../components/grid/Grid';
 import MainHeader from '../components/MainHeader';
+import { ModalProvider } from '../context/ModalContext';
 
 export default function Home() {
   return (
@@ -17,8 +18,10 @@ export default function Home() {
         onKeyDown={(e) => console.log('jfgfgjh')}
       >
         <div className='relative h-full'>
-          <MainHeader />
-          <GameBoard />
+          <ModalProvider>
+            <MainHeader />
+            <GameBoard />
+          </ModalProvider>
         </div>
       </main>
     </>
