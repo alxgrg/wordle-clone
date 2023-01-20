@@ -38,7 +38,6 @@ const MainHeader = () => {
       </header>
       {modalCtx?.isOpen && (
         <Modal>
-          <p>Test</p>
           <Statistics />
         </Modal>
       )}
