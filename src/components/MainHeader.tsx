@@ -6,6 +6,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { useContext } from 'react';
 import { ModalContext } from '../context/ModalContext';
+import Statistics from './menu/Statistics';
 import Modal from './ui/Modal';
 
 const MainHeader = () => {
@@ -38,6 +39,7 @@ const MainHeader = () => {
       {modalCtx?.isOpen && (
         <Modal>
           <p>Test</p>
+          <Statistics />
         </Modal>
       )}
     </>

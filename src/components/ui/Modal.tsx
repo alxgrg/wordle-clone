@@ -41,17 +41,14 @@ const Modal = ({ children }: { children: ReactNode }) => {
   const modalCtx = useContext(ModalContext);
 
   return createPortal(
-    <div className='flex fixed top-0 left-0 w-full h-full bg-gray-300/25 justify-center'>
-      <div className='relative bg-black rounded w-[90%] max-w-lg h-6'>
-        <div className='flex flex-row justify-end'>
-          {' '}
-          <button onClick={() => modalCtx?.close()}>
-            <XMarkIcon className='w-6 h-6' />
-          </button>
-        </div>
+    <div className='flex fixed w-full h-full top-0 left-0 p-0 justify-center items-center bg-slate-900/50'>
+      <div className='relative bg-black rounded w-[90%] max-w-lg max-h-full'>
+        <button onClick={modalCtx?.close} className='absolute top-4 right-4'>
+          <XMarkIcon className='h-6 w-6' />
+        </button>
+
+        {children}
       </div>
-      test
-      {children}
     </div>,
     modalElement
   );
