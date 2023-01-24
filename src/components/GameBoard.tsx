@@ -48,7 +48,10 @@ const GameBoard = () => {
         error={error}
         gameState={gameState}
       />
-      <Keyboard letterStatus={letterStatus} />
+      <Keyboard
+        letterStatus={letterStatus}
+        handleLetterInput={handleLetterInput}
+      />
     </div>
   );
 };
