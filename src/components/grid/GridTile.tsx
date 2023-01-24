@@ -61,11 +61,7 @@ const GridTile = ({ letter, status, delay, isWinner, hasPlayed }: Props) => {
   };
 
   return (
-    <div
-      className={`block ${
-        letter && status === undefined ? 'animate-popIn' : ''
-      }`}
-    >
+    <div className={`block ${letter ? 'animate-popIn' : ''}`}>
       <div
         style={{ animationDelay: ' ' + adjustedDelay + '00ms' }}
         className={`${

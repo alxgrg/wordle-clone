@@ -168,6 +168,7 @@ export const useKeyboard = () => {
 
     if (currentRowIndex > 5 && board[5] !== answer) {
       timer = setTimeout(() => setMessage(answer), revealAnimationDuration);
+      console.log(currentRowIndex);
     }
     return () => {
       clearTimeout(timer);
@@ -180,7 +181,7 @@ export const useKeyboard = () => {
       saveToLocalStorage('gameState', {
         board,
         evaluations,
-        currentRowIndex: currentRowIndex + 1,
+        currentRowIndex,
         gameState: 'win',
         letterStatus,
         lastPlayedTs: currentDate,
@@ -254,6 +255,7 @@ export const useKeyboard = () => {
       //   lastCompletedTs: currentDate,
       //   hasPlayed: true,
       // });
+      // setCurrentRowIndex((prev) => prev + 1);
       console.log('hkgfhkghjkhgkghjkgjkghjkjjjjjjjjjjjjjjjjjjjjjjjjj', board);
 
       const stats = getStats({ status: 'win', currentRowIndex });

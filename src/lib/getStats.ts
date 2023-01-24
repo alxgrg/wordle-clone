@@ -57,9 +57,9 @@ export const getStats = ({
   if (tempLocalStatistics.currentStreak >= tempLocalStatistics.maxStreak) {
     tempLocalStatistics.maxStreak = tempLocalStatistics.currentStreak;
   }
-  tempLocalStatistics.winPercentage =
-    (tempLocalStatistics.gamesWon / tempLocalStatistics.gamesPlayed) * 100;
-  console.log('temploc', tempLocalStatistics);
+  tempLocalStatistics.winPercentage = Math.round(
+    (tempLocalStatistics.gamesWon / tempLocalStatistics.gamesPlayed) * 100
+  );
 
   return tempLocalStatistics;
 };
