@@ -111,6 +111,29 @@ export const useKeyboard = () => {
     }
   }, [setStatistics]);
 
+  // If win save game state to local storage
+  useEffect(() => {
+    if (gameState === 'win') {
+      saveToLocalStorage('gameState', {
+        board,
+        evaluations,
+        currentRowIndex,
+        gameState: 'win',
+        letterStatus,
+        lastPlayedTs: currentDate,
+        lastCompletedTs: currentDate,
+        hasPlayed: true,
+      });
+    }
+  }, [
+    board,
+    currentDate,
+    currentRowIndex,
+    evaluations,
+    gameState,
+    letterStatus,
+  ]);
+
   // Check local storage for returning player
   useEffect(() => {
     const savedGame = loadGame();
@@ -174,29 +197,6 @@ export const useKeyboard = () => {
       clearTimeout(timer);
     };
   }, [answer, board, currentGuess, currentRowIndex]);
-
-  // If win save game state to local storage
-  useEffect(() => {
-    if (gameState === 'win') {
-      saveToLocalStorage('gameState', {
-        board,
-        evaluations,
-        currentRowIndex,
-        gameState: 'win',
-        letterStatus,
-        lastPlayedTs: currentDate,
-        lastCompletedTs: currentDate,
-        hasPlayed: true,
-      });
-    }
-  }, [
-    board,
-    currentDate,
-    currentRowIndex,
-    evaluations,
-    gameState,
-    letterStatus,
-  ]);
 
   // Add letter status for coloring keyboard keys
   const handleLetterStatus = (guessLetter: string, status: string) => {
