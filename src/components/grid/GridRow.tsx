@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+import { GameState } from '../../lib/localStorage';
 import GridTile from './GridTile';
 
 type Props = {
@@ -8,9 +10,23 @@ type Props = {
 };
 
 const GridRow = ({ guess, evaluations, error, gameState }: Props) => {
+  const [hasPlayed, setHasPlayed] = useState(false);
   const isWinner =
     !evaluations.includes(undefined) &&
     evaluations.every((status) => status === 'correct');
+
+  // Check local storage to see if player is returning to a completed game
+  useEffect(() => {
+    const rawGameState = localStorage.getItem('gameState');
+
+    if (rawGameState) {
+      const gameState = JSON.parse(rawGameState) as GameState;
+      if (gameState.hasPlayed) {
+        setHasPlayed(true);
+      }
+    }
+    console.log('gameState', gameState);
+  }, []);
 
   return (
     <div
@@ -23,6 +39,7 @@ const GridRow = ({ guess, evaluations, error, gameState }: Props) => {
           delay={i}
           status={evaluations[i]}
           isWinner={isWinner}
+          hasPlayed={hasPlayed}
         />
       ))}
     </div>

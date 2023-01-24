@@ -19,6 +19,7 @@ body {
   @apply dark:bg-custom-black bg-gray-200;
   @apply dark:text-white text-black;
   @apply h-full;
+  font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
 }
 
 a {
@@ -28,9 +29,13 @@ a {
 
 .win {
   --status: #538d4e;
-  animation: bounce 1000ms ease forwards;
+  /* animation: bounce 1000ms ease forwards; */
   background-color: #538d4e;
   border-color: #538d4e;
+}
+
+.winAnimation {
+  animation: bounce 1000ms ease forwards;
 }
 
 .correct {

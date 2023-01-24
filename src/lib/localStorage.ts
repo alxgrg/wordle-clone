@@ -9,6 +9,7 @@ export type GameState = {
   letterStatus: LetterStatus;
   lastCompletedTs: number | null;
   lastPlayedTs: number | null;
+  hasPlayed: boolean;
 };
 
 // Get current date timestamp

@@ -452,6 +452,7 @@ export const useKeyboard = () => {
         letterStatus,
         lastPlayedTs: currentDate,
         lastCompletedTs: null,
+        hasPlayed: false,
       });
     }
   }, [
@@ -496,6 +497,7 @@ export const useKeyboard = () => {
         letterStatus,
         lastCompletedTs: null,
         lastPlayedTs: null,
+        hasPlayed: false,
       });
       return;
     }
@@ -601,6 +603,7 @@ export const useKeyboard = () => {
         letterStatus,
         lastPlayedTs: currentDate,
         lastCompletedTs: currentDate,
+        hasPlayed: true,
       });
 
       const stats = getStats({ status: 'win', currentRowIndex });
@@ -660,6 +663,7 @@ export const useKeyboard = () => {
         letterStatus,
         lastPlayedTs: currentDate,
         lastCompletedTs: currentDate,
+        hasPlayed: true,
       });
       // Set statistics in state and save to local storage
       const stats = getStats({ status: 'loss', currentRowIndex });
@@ -745,6 +749,7 @@ export const useKeyboard = () => {
     letterStatus,
     answer,
     statistics,
+    firstRender,
   };
 
   return gameData;
