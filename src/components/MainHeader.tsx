@@ -12,8 +12,6 @@ import Modal from './ui/Modal';
 const MainHeader = () => {
   const modalCtx = useContext(ModalContext);
 
-  console.log('mc: ', modalCtx?.isOpen);
-
   return (
     <>
       <header className='w-full px-5 min-[415px]:h-[66px] h-[40px] flex justify-between items-center border-b border-zinc-700'>
@@ -25,20 +23,22 @@ const MainHeader = () => {
         </div>
 
         <div className='flex basis-1/4 justify-end'>
-          <button>
+          <button onClick={() => modalCtx?.open('help')}>
             <QuestionMarkCircleIcon className='h-6 w-6 text-white' />
           </button>
-          <button onClick={() => modalCtx?.open()}>
+          <button onClick={() => modalCtx?.open('statistics')}>
             <ChartBarIcon className='h-6 w-6 text-white' />
           </button>
-          <button>
+          <button onClick={() => modalCtx?.open('settings')}>
             <Cog6ToothIcon className='h-6 w-6 text-white' />
           </button>
         </div>
       </header>
-      {modalCtx?.isOpen && (
+      {modalCtx?.modalState.isOpen && (
         <Modal>
-          <Statistics />
+          {modalCtx?.modalState.content === 'statistics' && <Statistics />}
+          {modalCtx?.modalState.content === 'settings' && <Statistics />}
+          {modalCtx?.modalState.content === 'help' && <Statistics />}
         </Modal>
       )}
     </>
