@@ -1,4 +1,11 @@
-import { createContext, ReactNode, useState } from 'react';
+import {
+  createContext,
+  ReactNode,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from 'react';
 
 type Modal = {
   modalState: { isOpen: boolean; content: string };
@@ -11,19 +18,35 @@ const ModalContext = createContext<Modal | null>(null);
 const ModalProvider = ({ children }: { children: ReactNode }) => {
   // const [isOpen, setIsOpen] = useState(false);
   const [modalState, setModalState] = useState({ isOpen: false, content: '' });
-  const close = () => {
+  const close = useCallback(() => {
     setModalState({ isOpen: false, content: '' });
-  };
-  const open = (content: string) => {
+  }, []);
+  const open = useCallback((content: string) => {
     console.log('modal context');
 
     setModalState({ isOpen: true, content });
-  };
+  }, []);
+
+  const contextValue = useMemo(
+    () => ({ modalState, open, close }),
+    [close, modalState, open]
+  );
+
   return (
-    <ModalContext.Provider value={{ modalState, open, close }}>
+    <ModalContext.Provider value={contextValue}>
       {children}
     </ModalContext.Provider>
   );
 };
 
 export { ModalContext, ModalProvider };
+
+export const useModal = () => {
+  const modalCtx = useContext(ModalContext);
+  if (!modalCtx) {
+    throw new Error('Statistics context does not exist');
+  }
+  const { modalState, open, close } = modalCtx;
+
+  return { modalState, open, close };
+};

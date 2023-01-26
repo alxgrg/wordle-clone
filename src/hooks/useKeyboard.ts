@@ -1,10 +1,11 @@
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { wordList } from '../static/wordList';
 import satisfiesHardMode from '../lib/satisfiesHardMode';
-import { loadGame, saveToLocalStorage } from '../lib/localStorage';
+import { GameState, loadGame, saveToLocalStorage } from '../lib/localStorage';
 import { getSolution } from '../lib/getSolution';
 import { getStats, Statistics } from '../lib/getStats';
 import { useStatistics } from '../context/StatisticsContext';
+import { ModalContext, useModal } from '../context/ModalContext';
 
 export type LetterStatus = {
   [letter: string]: string;
@@ -45,6 +46,9 @@ export const useKeyboard = () => {
   const [letterStatus, setLetterStatus] = useState<LetterStatus>({});
   // const [statistics, setStatistics] = useState<Statistics>(initialStats);
 
+  const modalCtx = useContext(ModalContext);
+  const { modalState, open, close } = useModal();
+
   // Get statistics context
   const { statistics, setStatistics } = useStatistics();
 
@@ -67,28 +71,28 @@ export const useKeyboard = () => {
     }
   }, []);
 
-  useEffect(() => {
-    // Update local storage
-    if (gameState === 'active' && board[0].length > 0) {
-      saveToLocalStorage('gameState', {
-        board,
-        evaluations,
-        currentRowIndex,
-        gameState,
-        letterStatus,
-        lastPlayedTs: currentDate,
-        lastCompletedTs: null,
-        hasPlayed: false,
-      });
-    }
-  }, [
-    board,
-    currentDate,
-    currentRowIndex,
-    evaluations,
-    gameState,
-    letterStatus,
-  ]);
+  // useEffect(() => {
+  //   // Update local storage
+  //   if (gameState === 'active' && board[0].length > 0) {
+  //     saveToLocalStorage('gameState', {
+  //       board,
+  //       evaluations,
+  //       currentRowIndex,
+  //       gameState,
+  //       letterStatus,
+  //       lastPlayedTs: currentDate,
+  //       lastCompletedTs: null,
+  //       hasPlayed: false,
+  //     });
+  //   }
+  // }, [
+  //   board,
+  //   currentDate,
+  //   currentRowIndex,
+  //   evaluations,
+  //   gameState,
+  //   letterStatus,
+  // ]);
 
   // If player has saved game in local storage initialize game state
   useEffect(() => {
@@ -111,9 +115,29 @@ export const useKeyboard = () => {
     }
   }, [setStatistics]);
 
-  // If win save game state to local storage
   useEffect(() => {
     if (gameState === 'win') {
+      // show modal
+      const timer = setTimeout(
+        () => open('statistics'),
+        revealAnimationDuration
+      );
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [gameState, open]);
+
+  // If win, save game state to local storage
+  useEffect(() => {
+    if (gameState === 'win') {
+      const rawGameState = localStorage.getItem('gameState');
+      if (rawGameState) {
+        const gameState = JSON.parse(rawGameState) as GameState;
+        if (gameState.hasPlayed) {
+          return;
+        }
+      }
       saveToLocalStorage('gameState', {
         board,
         evaluations,
@@ -241,6 +265,17 @@ export const useKeyboard = () => {
       }
     }
 
+    saveToLocalStorage('gameState', {
+      board,
+      evaluations,
+      currentRowIndex,
+      gameState,
+      letterStatus,
+      lastPlayedTs: currentDate,
+      lastCompletedTs: null,
+      hasPlayed: false,
+    });
+
     // Check if guess is correct
     if (guess === answer) {
       setGameState('win');
@@ -256,7 +291,6 @@ export const useKeyboard = () => {
       //   hasPlayed: true,
       // });
       // setCurrentRowIndex((prev) => prev + 1);
-      console.log('hkgfhkghjkhgkghjkgjkghjkjjjjjjjjjjjjjjjjjjjjjjjjj', board);
 
       const stats = getStats({ status: 'win', currentRowIndex });
       setStatistics(stats);

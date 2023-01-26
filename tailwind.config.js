@@ -81,12 +81,37 @@ module.exports = {
             transform: 'rotateX(0)',
           },
         },
+        slideIn: {
+          '0%': {
+            transform: 'translateY(30px)',
+            opacity: 0,
+          },
+          '100%': {
+            transform: 'translateY(0px)',
+            opacity: 1,
+          },
+        },
+        slideOut: {
+          '0%': {
+            transform: 'translateY(0px)',
+            opacity: 1,
+          },
+          '90%': {
+            opacity: 0,
+          },
+          '100%': {
+            opacity: 0,
+            transform: 'translateY(60px)',
+          },
+        },
       },
       animation: {
         shake: 'shake 600ms',
         popIn: 'popIn 100ms ease-in forwards',
         flipIn: 'flipIn 250ms ease-in forwards',
         flipOut: 'flipOut 250ms ease-in forwards',
+        slideIn: 'slideIn 200ms ease-in forwards',
+        slideOut: 'slideOut 200ms ease-in forwards',
       },
     },
   },
