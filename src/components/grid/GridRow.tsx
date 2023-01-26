@@ -26,7 +26,7 @@ const GridRow = ({ guess, evaluations, error, gameState }: Props) => {
       }
     }
     console.log('gameState', gameState);
-  }, []);
+  }, [gameState]);
 
   return (
     <div

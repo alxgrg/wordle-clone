@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { wordList } from '../static/wordList';
 import satisfiesHardMode from '../lib/satisfiesHardMode';
 import { GameState, loadGame, saveToLocalStorage } from '../lib/localStorage';
@@ -71,9 +71,28 @@ export const useKeyboard = () => {
     }
   }, []);
 
+  // TODO fix updating localstorage every
   // useEffect(() => {
+  //   const testIndex = currentRowIndex;
   //   // Update local storage
   //   if (gameState === 'active' && board[0].length > 0) {
+  //     const rawGameState = localStorage.getItem('gameState');
+  //     // if (rawGameState) {
+  //     //   const parsedGameState = JSON.parse(rawGameState) as GameState;
+  //     //   if (parsedGameState.currentRowIndex !== currentRowIndex) {
+  //     //     console.log('?????', currentRowIndex);
+  //     //     saveToLocalStorage('gameState', {
+  //     //       board,
+  //     //       evaluations,
+  //     //       currentRowIndex,
+  //     //       gameState,
+  //     //       letterStatus,
+  //     //       lastPlayedTs: currentDate,
+  //     //       lastCompletedTs: null,
+  //     //       hasPlayed: false,
+  //     //     });
+  //     //   }
+  //     // }
   //     saveToLocalStorage('gameState', {
   //       board,
   //       evaluations,
@@ -84,6 +103,7 @@ export const useKeyboard = () => {
   //       lastCompletedTs: null,
   //       hasPlayed: false,
   //     });
+  //     console.log('?????', currentRowIndex);
   //   }
   // }, [
   //   board,
@@ -97,6 +117,8 @@ export const useKeyboard = () => {
   // If player has saved game in local storage initialize game state
   useEffect(() => {
     const savedGame = loadGame();
+
+    console.log('saved game: ', savedGame);
 
     if (savedGame) {
       setBoard(savedGame.board);
@@ -265,17 +287,6 @@ export const useKeyboard = () => {
       }
     }
 
-    saveToLocalStorage('gameState', {
-      board,
-      evaluations,
-      currentRowIndex,
-      gameState,
-      letterStatus,
-      lastPlayedTs: currentDate,
-      lastCompletedTs: null,
-      hasPlayed: false,
-    });
-
     // Check if guess is correct
     if (guess === answer) {
       setGameState('win');
@@ -356,6 +367,17 @@ export const useKeyboard = () => {
       setStatistics(stats);
       localStorage.setItem('statistics', JSON.stringify(stats));
     }
+
+    saveToLocalStorage('gameState', {
+      board,
+      evaluations,
+      currentRowIndex: currentRowIndex + 1,
+      gameState,
+      letterStatus,
+      lastPlayedTs: currentDate,
+      lastCompletedTs: null,
+      hasPlayed: false,
+    });
   };
 
   // Handle input from virtual keyboard

@@ -33,7 +33,7 @@ const Key = ({
     return () => {
       clearTimeout(timer);
     };
-  }, []);
+  }, [firstRender]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
