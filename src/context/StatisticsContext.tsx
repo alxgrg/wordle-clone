@@ -20,6 +20,7 @@ const initialStats = {
   gamesPlayed: 0,
   gamesWon: 0,
   averageGuesses: 0,
+  todaysWinningGuess: null,
 };
 const StatisticsContext = createContext<StatisticsContext | null>(null);
 

@@ -1,6 +1,10 @@
 import { useStatistics } from '../../context/StatisticsContext';
 
-const Statistics = () => {
+const Statistics = ({
+  todaysWinningGuessIndex,
+}: {
+  todaysWinningGuessIndex: number | null;
+}) => {
   const { statistics } = useStatistics();
 
   // Get number of guesses it took player to win each respective game and get percentage for guess distribution bar graph
@@ -71,7 +75,11 @@ const Statistics = () => {
             <div className='w-full h-full pl-2'>
               <div
                 style={{ width: percentages[i] + '%' }}
-                className='flex justify-end h-full bg-custom-gray relative'
+                className={`flex justify-end h-full relative ${
+                  todaysWinningGuessIndex === i
+                    ? 'bg-custom-green'
+                    : 'bg-custom-gray'
+                }`}
               >
                 <div className='text-xs font-bold pr-2'>{guess}</div>
               </div>

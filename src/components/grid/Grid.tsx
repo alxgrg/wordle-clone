@@ -81,8 +81,6 @@ const Grid = ({
   const gridRef = useRef(null);
   const dimensions = useResizeGrid(gridRef);
 
-  console.log('fufufufu', board);
-
   return (
     <div
       ref={gridRef}

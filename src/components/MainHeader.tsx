@@ -34,13 +34,6 @@ const MainHeader = () => {
           </button>
         </div>
       </header>
-      {modalCtx?.modalState.isOpen && (
-        <Modal>
-          {modalCtx?.modalState.content === 'statistics' && <Statistics />}
-          {modalCtx?.modalState.content === 'settings' && <Statistics />}
-          {modalCtx?.modalState.content === 'help' && <Statistics />}
-        </Modal>
-      )}
     </>
   );
 };

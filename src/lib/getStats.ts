@@ -48,6 +48,7 @@ export const getStats = ({
     tempLocalStatistics.currentStreak += 1;
 
     tempLocalStatistics.guesses[currentRowIndex + 1] += 1; // add 1 to guesses it took this round
+    // tempLocalStatistics.todaysWinningGuess = currentRowIndex;
   } else if (status === 'loss') {
     // Check for loss status and add 1 to failed guesses and reset current streak
     tempLocalStatistics.guesses['fail'] += 1;
