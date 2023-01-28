@@ -63,6 +63,7 @@ export const useKeyboard = () => {
 
   // Check if initial page load
   const firstRender = useRef(true);
+  console.log('first render', firstRender.current);
 
   // If so set it to false after loading
   useEffect(() => {
@@ -139,14 +140,33 @@ export const useKeyboard = () => {
 
   useEffect(() => {
     if (gameState === 'win') {
-      // show modal
-      const timer = setTimeout(
-        () => open('statistics'),
-        revealAnimationDuration
-      );
-      return () => {
-        clearTimeout(timer);
-      };
+      const rawGameState = localStorage.getItem('gameState');
+      if (rawGameState) {
+        const parsedGameState = JSON.parse(rawGameState) as GameState;
+        if (parsedGameState.hasPlayed) {
+          const timer = setTimeout(
+            () => open('statistics'),
+            revealAnimationDuration - 800
+          );
+          return () => {
+            clearTimeout(timer);
+          };
+        } else {
+          const timer = setTimeout(
+            () => open('statistics'),
+            revealAnimationDuration + 2600
+          );
+        }
+      } else {
+        // show modal
+        const timer = setTimeout(
+          () => open('statistics'),
+          revealAnimationDuration + 2600
+        );
+        return () => {
+          clearTimeout(timer);
+        };
+      }
     }
   }, [gameState, open]);
 
@@ -202,7 +222,7 @@ export const useKeyboard = () => {
   useEffect(() => {
     let timer: ReturnType<typeof setTimeout>;
     if (message && gameState !== 'loss') {
-      timer = setTimeout(() => setMessage(''), 3000);
+      timer = setTimeout(() => setMessage(''), 2500);
     }
     return () => {
       clearTimeout(timer);

@@ -23,16 +23,16 @@ const Modal = ({ children }: { children: ReactNode }) => {
   };
 
   return createPortal(
-    <CSSTransition
-      nodeRef={nodeRef}
-      in={modalCtx?.modalState.isOpen}
-      timeout={200}
-      classNames='modal'
-      appear
+    <div
+      ref={nodeRef}
+      className={`flex fixed w-full h-full top-0 left-0 p-0 justify-center items-center bg-slate-900/50 ${exitClass}`}
     >
-      <div
-        ref={nodeRef}
-        className={`flex fixed w-full h-full top-0 left-0 p-0 justify-center items-center bg-slate-900/50 ${exitClass}`}
+      <CSSTransition
+        nodeRef={nodeRef}
+        in={modalCtx?.modalState.isOpen}
+        timeout={200}
+        classNames='modal'
+        appear
       >
         <div className='relative bg-black rounded w-[90%] max-w-lg max-h-full'>
           <button onClick={handleClose} className='absolute top-4 right-4'>
@@ -41,8 +41,8 @@ const Modal = ({ children }: { children: ReactNode }) => {
 
           {children}
         </div>
-      </div>
-    </CSSTransition>,
+      </CSSTransition>
+    </div>,
     modalElement
   );
 };
