@@ -34,7 +34,7 @@ const Modal = ({ children }: { children: ReactNode }) => {
         classNames='modal'
         appear
       >
-        <div className='relative bg-black rounded w-[90%] max-w-lg max-h-full'>
+        <div className='relative dark:bg-black bg-gray-200 rounded w-[90%] max-w-lg max-h-full'>
           <button onClick={handleClose} className='absolute top-4 right-4'>
             <XMarkIcon className='h-6 w-6' />
           </button>
