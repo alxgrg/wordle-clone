@@ -23,10 +23,7 @@ const Modal = ({ children }: { children: ReactNode }) => {
   };
 
   return createPortal(
-    <div
-      ref={nodeRef}
-      className={`flex fixed w-full h-full top-0 left-0 p-0 justify-center items-center bg-slate-900/50 ${exitClass}`}
-    >
+    <div className='flex fixed w-full h-full top-0 left-0 p-0 justify-center items-end min-[500px]:items-center bg-black/50'>
       <CSSTransition
         nodeRef={nodeRef}
         in={modalCtx?.modalState.isOpen}
@@ -34,7 +31,10 @@ const Modal = ({ children }: { children: ReactNode }) => {
         classNames='modal'
         appear
       >
-        <div className='relative dark:bg-black bg-gray-200 rounded w-[90%] max-w-lg max-h-full'>
+        <div
+          ref={nodeRef}
+          className={`relative dark:bg-black bg-gray-200 rounded min-[500px]:w-[90%] max-[500px]:min-h-[75%] w-full max-w-lg max-h-full ${exitClass}`}
+        >
           <button onClick={handleClose} className='absolute top-4 right-4'>
             <XMarkIcon className='h-6 w-6' />
           </button>
