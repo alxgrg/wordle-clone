@@ -46,6 +46,8 @@ export const useKeyboard = () => {
   const [letterStatus, setLetterStatus] = useState<LetterStatus>({});
   // const [statistics, setStatistics] = useState<Statistics>(initialStats);
 
+  const [isNewPlayer, setIsNewPlayer] = useState(true);
+
   const modalCtx = useContext(ModalContext);
   const { modalState, open, close } = useModal();
 
@@ -114,6 +116,17 @@ export const useKeyboard = () => {
   //   gameState,
   //   letterStatus,
   // ]);
+  useEffect(() => {
+    const savedGame = loadGame();
+
+    if (!savedGame) {
+      modalCtx?.open('help');
+    }
+    if (savedGame && !savedGame.lastPlayedTs && isNewPlayer) {
+      modalCtx?.open('help');
+      setIsNewPlayer(false);
+    }
+  }, [isNewPlayer, modalCtx]);
 
   // If player has saved game in local storage initialize game state
   useEffect(() => {
@@ -134,7 +147,7 @@ export const useKeyboard = () => {
       // Set statistics in context
       // statsCtx?.setStatistics(stats);
     }
-  }, [setStatistics]);
+  }, [modalCtx, setStatistics]);
 
   useEffect(() => {
     if (gameState === 'win') {
