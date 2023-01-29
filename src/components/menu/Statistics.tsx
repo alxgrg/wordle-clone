@@ -81,7 +81,7 @@ const Statistics = ({
                     : 'bg-custom-gray'
                 }`}
               >
-                <div className='text-xs font-bold pr-2'>{guess}</div>
+                <div className='text-xs font-bold pr-2 text-white'>{guess}</div>
               </div>
             </div>
           </div>

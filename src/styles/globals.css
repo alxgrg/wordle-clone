@@ -121,11 +121,13 @@ a {
   0% {
     /* @apply bg-custom-black;
     @apply border-zinc-700; */
+
     transform: rotateX(0);
   }
   100% {
     /* @apply bg-custom-black;
     @apply border-zinc-700; */
+
     transform: rotateX(-90deg);
   }
 }
@@ -135,11 +137,13 @@ a {
     border-color: var(--status);
     background: var(--status);
     transform: rotateX(-90deg);
+    color: #fff;
   }
   100% {
     border-color: var(--status);
     background: var(--status);
     transform: rotateX(0);
+    color: #fff;
   }
 }
 

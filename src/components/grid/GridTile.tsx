@@ -74,8 +74,10 @@ const GridTile = ({ letter, status, delay, isWinner, hasPlayed }: Props) => {
       >
         <div
           style={statusClasses ? extraStyles : undefined}
-          className={`before:pb-[100%] before:inline-block inline-flex w-full box-border border-2 border-zinc-700 text-[2rem] align-middle justify-center leading-4 uppercase font-bold items-center  ${
-            letter ? 'border-zinc-600' : 'border-zinc-700'
+          className={`before:pb-[100%] before:inline-block inline-flex w-full box-border border-2 border-zinc-700 text-[2rem] align-middle justify-center leading-4 uppercase font-bold items-center dark:text-white text-black ${
+            letter
+              ? 'dark:border-zinc-600 border-zinc-500'
+              : 'dark:border-zinc-700 border-zinc-400'
           }`}
         >
           {letter}

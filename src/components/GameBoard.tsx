@@ -5,6 +5,7 @@ import { useKeyboard } from '../hooks/useKeyboard';
 import Grid from './grid/Grid';
 import Keyboard from './keyboard/Keyboard';
 import Help from './menu/Help';
+import Settings from './menu/Settings';
 import Statistics from './menu/Statistics';
 import Modal from './ui/Modal';
 
@@ -69,13 +70,7 @@ const GameBoard = () => {
               }
             />
           )}
-          {modalCtx?.modalState.content === 'settings' && (
-            <Statistics
-              todaysWinningGuessIndex={
-                gameState === 'win' ? currentRowIndex - 1 : null
-              }
-            />
-          )}
+          {modalCtx?.modalState.content === 'settings' && <Settings />}
           {modalCtx?.modalState.content === 'help' && <Help />}
         </Modal>
       )}

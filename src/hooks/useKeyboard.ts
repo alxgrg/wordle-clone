@@ -63,7 +63,7 @@ export const useKeyboard = () => {
 
   // Check if initial page load
   const firstRender = useRef(true);
-  console.log('first render', firstRender.current);
+  // console.log('first render', firstRender.current);
 
   // If so set it to false after loading
   useEffect(() => {
@@ -118,8 +118,6 @@ export const useKeyboard = () => {
   // If player has saved game in local storage initialize game state
   useEffect(() => {
     const savedGame = loadGame();
-
-    console.log('saved game: ', savedGame);
 
     if (savedGame) {
       setBoard(savedGame.board);

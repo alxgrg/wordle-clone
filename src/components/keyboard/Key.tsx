@@ -38,11 +38,11 @@ const Key = ({
   useEffect(() => {
     const timer = setTimeout(() => {
       if (status === 'correct') {
-        setStatusClasses('bg-custom-green');
+        setStatusClasses('bg-custom-green text-white');
       } else if (status === 'present') {
-        setStatusClasses('bg-custom-yellow');
+        setStatusClasses('bg-custom-yellow text-white');
       } else if (status === 'absent') {
-        setStatusClasses('bg-custom-gray');
+        setStatusClasses('bg-custom-gray text-white');
       }
     }, letterDelay);
 
@@ -56,7 +56,9 @@ const Key = ({
       onClick={() => handleLetterInput(value)}
       className={`h-[58px] rounded mr-[6px] last:mr-0 flex ${
         isNotLetter ? 'flex-[1.5_1_0%]' : 'flex-1'
-      } justify-center items-center ${statusClasses} ${classes ? classes : ''}`}
+      } justify-center items-center dark:text-white text-black ${statusClasses} ${
+        classes ? classes : ''
+      }`}
     >
       {children}
     </button>

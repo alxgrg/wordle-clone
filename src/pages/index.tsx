@@ -1,11 +1,22 @@
 import Head from 'next/head';
 import GameBoard from '../components/GameBoard';
-import Grid from '../components/grid/Grid';
 import MainHeader from '../components/MainHeader';
 import { StatisticsProvider } from '../context/StatisticsContext';
 import { ModalProvider } from '../context/ModalContext';
+import { SettingsProvider, useSettings } from '../context/SettingsContext';
+import { useEffect, useState } from 'react';
 
 export default function Home() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
+
   return (
     <>
       <Head>
@@ -14,17 +25,16 @@ export default function Home() {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <main
-        className='absolute w-full h-full top-0 left-0'
-        onKeyDown={(e) => console.log('jfgfgjh')}
-      >
+      <main className='absolute w-full h-full top-0 left-0'>
         <div className='relative h-full'>
-          <StatisticsProvider>
-            <ModalProvider>
-              <MainHeader />
-              <GameBoard />
-            </ModalProvider>
-          </StatisticsProvider>
+          <SettingsProvider>
+            <StatisticsProvider>
+              <ModalProvider>
+                <MainHeader />
+                <GameBoard />
+              </ModalProvider>
+            </StatisticsProvider>
+          </SettingsProvider>
         </div>
       </main>
     </>
