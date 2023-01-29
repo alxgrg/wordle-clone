@@ -20,6 +20,7 @@ body {
   @apply dark:text-white text-black;
   @apply h-full;
   font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.3);
 }
 
 a {
