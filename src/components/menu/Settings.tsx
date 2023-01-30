@@ -1,7 +1,14 @@
 import { useSettings } from '../../context/SettingsContext';
 
-const Settings = () => {
-  const { toggleHardMode, toggleDarkTheme } = useSettings();
+const Settings = ({
+  gameState,
+  currentRowIndex,
+}: {
+  gameState: string;
+  currentRowIndex: number;
+}) => {
+  const { toggleHardMode, toggleDarkTheme, settings } = useSettings();
+  const { darkTheme, hardMode } = settings;
   return (
     <div className='flex flex-col p-4'>
       <h1 className='font-bold mb-4 text-center'>SETTINGS</h1>
@@ -16,10 +23,16 @@ const Settings = () => {
             </div>
             <div className='flex justify-between'>
               <button
-                onClick={() => toggleHardMode()}
-                className='h-5 w-8 bg-custom-gray rounded-full border-none relative'
+                onClick={() => toggleHardMode(gameState, currentRowIndex)}
+                className={`h-5 w-8  rounded-full border-none relative ${
+                  !hardMode ? 'bg-custom-gray' : 'bg-custom-green'
+                }`}
               >
-                <span className='block absolute left-[2px] top-[2px] h-[calc(100%-4px)] w-1/2 rounded-lg bg-white translate-x-0 transition-transform duration-300'></span>
+                <span
+                  className={`block absolute left-[2px] top-[2px] h-[calc(100%-4px)] w-1/2 rounded-lg bg-white transition-transform duration-300 ${
+                    !hardMode ? 'translate-x-0' : 'translate-x-[calc(100%-4px)]'
+                  }`}
+                ></span>
               </button>
             </div>
           </div>
@@ -30,9 +43,17 @@ const Settings = () => {
             <div className='flex justify-between'>
               <button
                 onClick={() => toggleDarkTheme()}
-                className='h-5 w-8 bg-custom-gray rounded-full border-none relative'
+                className={`h-5 w-8  rounded-full border-none relative ${
+                  !darkTheme ? 'bg-custom-gray' : 'bg-custom-green'
+                }`}
               >
-                <span className='block absolute left-[2px] top-[2px] h-[calc(100%-4px)] w-1/2 rounded-lg bg-white translate-x-0 transition-transform duration-300'></span>
+                <span
+                  className={`block absolute left-[2px] top-[2px] h-[calc(100%-4px)] w-1/2 rounded-lg bg-white translate-x-0 transition-transform duration-300 ${
+                    !darkTheme
+                      ? 'translate-x-0'
+                      : 'translate-x-[calc(100%-4px)]'
+                  }`}
+                ></span>
               </button>
             </div>
           </div>

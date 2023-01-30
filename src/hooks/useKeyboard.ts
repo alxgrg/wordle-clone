@@ -6,6 +6,7 @@ import { getSolution } from '../lib/getSolution';
 import { getStats, Statistics } from '../lib/getStats';
 import { useStatistics } from '../context/StatisticsContext';
 import { ModalContext, useModal } from '../context/ModalContext';
+import { useSettings } from '../context/SettingsContext';
 
 export type LetterStatus = {
   [letter: string]: string;
@@ -54,6 +55,10 @@ export const useKeyboard = () => {
   // Get statistics context
   const { statistics, setStatistics } = useStatistics();
 
+  // Get settings context
+  const { settings, message: settingsMessage } = useSettings();
+  const { hardMode } = settings;
+
   // Get todays solution
   const answer = getSolution();
 
@@ -74,48 +79,12 @@ export const useKeyboard = () => {
     }
   }, []);
 
-  // TODO fix updating localstorage every
-  // useEffect(() => {
-  //   const testIndex = currentRowIndex;
-  //   // Update local storage
-  //   if (gameState === 'active' && board[0].length > 0) {
-  //     const rawGameState = localStorage.getItem('gameState');
-  //     // if (rawGameState) {
-  //     //   const parsedGameState = JSON.parse(rawGameState) as GameState;
-  //     //   if (parsedGameState.currentRowIndex !== currentRowIndex) {
-  //     //     console.log('?????', currentRowIndex);
-  //     //     saveToLocalStorage('gameState', {
-  //     //       board,
-  //     //       evaluations,
-  //     //       currentRowIndex,
-  //     //       gameState,
-  //     //       letterStatus,
-  //     //       lastPlayedTs: currentDate,
-  //     //       lastCompletedTs: null,
-  //     //       hasPlayed: false,
-  //     //     });
-  //     //   }
-  //     // }
-  //     saveToLocalStorage('gameState', {
-  //       board,
-  //       evaluations,
-  //       currentRowIndex,
-  //       gameState,
-  //       letterStatus,
-  //       lastPlayedTs: currentDate,
-  //       lastCompletedTs: null,
-  //       hasPlayed: false,
-  //     });
-  //     console.log('?????', currentRowIndex);
-  //   }
-  // }, [
-  //   board,
-  //   currentDate,
-  //   currentRowIndex,
-  //   evaluations,
-  //   gameState,
-  //   letterStatus,
-  // ]);
+  useEffect(() => {
+    if (settingsMessage) {
+      setMessage(settingsMessage);
+    }
+  }, [settingsMessage]);
+
   useEffect(() => {
     const savedGame = loadGame();
 
@@ -440,21 +409,26 @@ export const useKeyboard = () => {
         return;
       }
 
-      // TODO add hard mode state and toggle
       // Check if satisfies hard mode
-      if (
-        satisfiesHardMode({ evaluations, previousGuesses: board, currentGuess })
-          ?.message
-      ) {
-        setError(
+      if (hardMode) {
+        if (
           satisfiesHardMode({
             evaluations,
             previousGuesses: board,
             currentGuess,
           })?.message
-        );
-        return;
+        ) {
+          setError(
+            satisfiesHardMode({
+              evaluations,
+              previousGuesses: board,
+              currentGuess,
+            })?.message
+          );
+          return;
+        }
       }
+
       setIsRevealing(true);
       let updatedBoard = board;
       updatedBoard[currentRowIndex] = currentGuess;

@@ -70,7 +70,9 @@ const GameBoard = () => {
               }
             />
           )}
-          {modalCtx?.modalState.content === 'settings' && <Settings />}
+          {modalCtx?.modalState.content === 'settings' && (
+            <Settings gameState={gameState} currentRowIndex={currentRowIndex} />
+          )}
           {modalCtx?.modalState.content === 'help' && <Help />}
         </Modal>
       )}

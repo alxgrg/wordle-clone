@@ -70,7 +70,7 @@ const Keyboard = ({
           isNotLetter={true}
           handleLetterInput={handleLetterInput}
         >
-          <BackspaceIcon className='h-6 w-6 text-white' />
+          <BackspaceIcon className='h-6 w-6 text-black dark:text-white' />
         </Key>
       </div>
     </div>

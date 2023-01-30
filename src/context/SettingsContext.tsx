@@ -157,6 +157,7 @@ const useSettingsData = () => {
   const [hardMode, setHardMode] = useState(false);
   const [darkTheme, setDarkTheme] = useState(false);
   const [highContrast, setHighContrast] = useState(false);
+  const [message, setMessage] = useState('');
 
   const [settings, setSettings] = useState({
     hardMode: false,
@@ -207,8 +208,14 @@ const useSettingsData = () => {
     }
   }, [darkTheme, hardMode, highContrast, settings]);
 
-  const toggleHardMode = () => {
+  const toggleHardMode = (gameState: string, currentRowIndex: number) => {
+    if (gameState === 'active' && currentRowIndex > 0 && !settings.hardMode) {
+      setMessage('Hard mode can only be enabled at the start of a round');
+      setTimeout(() => setMessage(''), 2000);
+      return;
+    }
     const { hardMode, darkTheme, highContrast } = settings;
+
     const newSettings = {
       hardMode: !hardMode,
       darkTheme,
@@ -217,8 +224,6 @@ const useSettingsData = () => {
     };
 
     setSettings(newSettings);
-
-    // saveToLocalStorage<LocalSettings>('settings', settings);
   };
 
   const toggleDarkTheme = () => {
@@ -251,6 +256,7 @@ const useSettingsData = () => {
     settings,
     toggleHardMode,
     toggleDarkTheme,
+    message,
   };
 };
 
@@ -275,11 +281,12 @@ export const useSettings = () => {
   if (!settingsCtx) {
     throw new Error('Settings context does not exist');
   }
-  const { settings, toggleHardMode, toggleDarkTheme } = settingsCtx;
+  const { settings, toggleHardMode, toggleDarkTheme, message } = settingsCtx;
 
   return {
     settings,
     toggleHardMode,
     toggleDarkTheme,
+    message,
   };
 };
