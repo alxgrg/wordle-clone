@@ -34,8 +34,6 @@ export const StatisticsProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-// export { StatisticsContext, StatisticsProvider };
-
 export const useStatistics = () => {
   const statisticsCtx = useContext(StatisticsContext);
   if (!statisticsCtx) {

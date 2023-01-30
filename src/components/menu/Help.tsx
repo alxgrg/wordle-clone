@@ -22,7 +22,7 @@ const Help = () => {
                   style={{
                     animation: `FlipIn 300ms ease-in 300ms forwards, FlipOut 300ms ease-in 300ms forwards`,
                   }}
-                  className={`before:pb-[100%] before:inline-block inline-flex w-full box-border border-2 border-zinc-700 text-[1.6rem] align-middle justify-center leading-4 uppercase font-bold items-center correct`}
+                  className={`before:pb-[100%] before:inline-block inline-flex w-full box-border border-2 border-zinc-700 text-[1.6rem] align-middle justify-center leading-4 uppercase font-bold items-center correct dark:text-white text-black`}
                 >
                   W
                 </div>
