@@ -3,6 +3,7 @@ import { useSettings } from '../../context/SettingsContext';
 import { useStatistics } from '../../context/StatisticsContext';
 import { Evaluations } from '../../hooks/useKeyboard';
 import { copyToClipboard } from '../../lib/copyToClipboard';
+import CountdownTimer from './CountdownTimer';
 
 const Statistics = ({
   todaysWinningGuessIndex,
@@ -46,7 +47,7 @@ const Statistics = ({
   const { guessValues, percentages } = guessDistribution();
 
   return (
-    <div className='flex flex-col px-4 pb-4 pt-8 justify-center items-center'>
+    <div className='flex flex-col px-4 pb-8 pt-8 justify-center items-center'>
       {/* Statistics */}
       <h2 className='mb-2 text-center font-bold text-sm'>STATISTICS</h2>
       <div className='flex flex-row'>
@@ -89,7 +90,7 @@ const Statistics = ({
       </h2>
       <div className='flex flex-col w-4/5 pb-3'>
         {guessValues.map((guess, i) => (
-          <div className='w-full h-[22px] flex items-center pb-1' key={i}>
+          <div className='w-full h-6 flex items-center pb-1' key={i}>
             <div className='text-xs tracking-widest'>{i + 1}</div>
             <div className='w-full h-full pl-2'>
               <div
@@ -111,10 +112,13 @@ const Statistics = ({
         <div className='flex w-full'>
           <div className='pr-3 w-1/2 border-r'>
             <h2 className='text-center uppercase font-bold'>Next Wordle</h2>
+            <div>
+              <CountdownTimer />
+            </div>
           </div>
           <div className='w-1/2 pl-3 flex items-center justify-center'>
             <button
-              className={`flex justify-center items-center w-4/5 rounded h-[52px] uppercase font-bold text-xl ${
+              className={`flex justify-center items-center w-4/5 rounded h-[52px] uppercase font-bold text-xl text-white ${
                 highContrast ? 'bg-custom-orange' : 'bg-custom-green'
               }`}
               onClick={() => onShare()}

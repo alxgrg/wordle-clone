@@ -33,7 +33,7 @@ const Modal = ({ children }: { children: ReactNode }) => {
       >
         <div
           ref={nodeRef}
-          className={`relative dark:bg-black bg-gray-200 rounded min-[500px]:w-[90%] max-[500px]:min-h-[75%] w-full max-w-lg max-h-full ${exitClass}`}
+          className={`relative dark:bg-custom-black bg-gray-200 rounded min-[500px]:w-[90%] max-[500px]:min-h-[75%] w-full max-w-lg max-h-full ${exitClass}`}
         >
           <button onClick={handleClose} className='absolute top-4 right-4'>
             <XMarkIcon className='h-6 w-6' />

@@ -45,7 +45,7 @@ const GameBoard = () => {
       <div className='flex flex-col w-full max-w-[500px] m-auto h-[calc(100%-40px)] min-[415px]:h-[calc(100%-64px)]'>
         <div className='absolute top[10%] left-1/2 translate-x-[-50%] w-auto inline-block z-50'>
           {(error || message) && (
-            <div className='relative m-4 p-4 rounded text-black font-bold bg-white'>
+            <div className='relative m-4 p-4 rounded font-bold text-white bg-custom-black dark:text-black dark:bg-white'>
               {error || message}
             </div>
           )}
