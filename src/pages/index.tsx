@@ -8,9 +8,20 @@ import { useEffect, useState } from 'react';
 
 export default function Home() {
   const [mounted, setMounted] = useState(false);
+  const [showOrientationWarning, setShowOrientationWarning] = useState(false);
 
   useEffect(() => {
     setMounted(true);
+    let portrait = window.matchMedia('(orientation: portrait)');
+
+    portrait.addEventListener('change', function (e) {
+      if (e.matches) {
+        setShowOrientationWarning(false);
+      } else {
+        // Landscape
+        setShowOrientationWarning(true);
+      }
+    });
   }, []);
 
   if (!mounted) {
@@ -25,10 +36,17 @@ export default function Home() {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <main className='absolute w-full h-full top-0 left-0 min-[500px]:overflow-y-hidden'>
+      <main className='absolute top-0 left-0 h-full w-full min-[500px]:overflow-y-hidden'>
         <div className='relative h-full'>
           <SettingsProvider>
             <StatisticsProvider>
+              {showOrientationWarning && (
+                <div className='fixed top-0 left-0 right-0 bottom-0 z-[9999] bg-white pt-14 text-center dark:bg-black'>
+                  <p>Oh no! We can&apos;t fit everything on your screen.</p>
+                  <br />
+                  <p className='font-bold'>Please rotate your device.</p>
+                </div>
+              )}
               <ModalProvider>
                 <MainHeader />
                 <GameBoard />
