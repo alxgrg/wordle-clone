@@ -43,6 +43,7 @@ export const useKeyboard = () => {
   const [gameState, setGameState] = useState('active');
   const [isRevealing, setIsRevealing] = useState(false);
   const [message, setMessage] = useState('');
+  const [clipboardMessage, setClipboardMessage] = useState('');
   const [currentRowIndex, setCurrentRowIndex] = useState(0);
   const [evaluations, setEvaluations] = useState<Evaluations>(
     [...Array(6)].map((e) => Array(5))
@@ -228,6 +229,16 @@ export const useKeyboard = () => {
       clearTimeout(timer);
     };
   }, [gameState, message]);
+  // Set timer to clear clipboard message
+  useEffect(() => {
+    let timer: ReturnType<typeof setTimeout>;
+    if (clipboardMessage.length > 0) {
+      timer = setTimeout(() => setClipboardMessage(''), 2500);
+    }
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [clipboardMessage]);
 
   // Set timer to clear any error message
   useEffect(() => {
@@ -484,7 +495,7 @@ export const useKeyboard = () => {
       });
     }
     await navigator.clipboard.writeText(result + tiles);
-    setMessage('Copied results to clipboard');
+    setClipboardMessage('Copied results to clipboard');
   };
 
   const gameData = {
@@ -496,6 +507,7 @@ export const useKeyboard = () => {
     evaluations,
     error,
     message,
+    clipboardMessage,
     gameState,
     letterStatus,
     answer,

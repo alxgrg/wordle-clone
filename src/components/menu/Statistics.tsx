@@ -110,7 +110,7 @@ const Statistics = ({
 
       {gameState !== 'active' && (
         <div className='flex w-full'>
-          <div className='pr-3 w-1/2 border-r'>
+          <div className='pr-3 w-1/2 border-r dark:border-white border-black'>
             <h2 className='text-center uppercase font-bold'>Next Wordle</h2>
             <div>
               <CountdownTimer />

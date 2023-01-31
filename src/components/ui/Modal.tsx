@@ -23,7 +23,7 @@ const Modal = ({ children }: { children: ReactNode }) => {
   };
 
   return createPortal(
-    <div className='flex fixed z-50 w-full h-full top-0 left-0 p-0 justify-center items-end min-[500px]:items-center bg-black/50'>
+    <div className='flex fixed z-40 w-full h-full top-0 left-0 p-0 justify-center items-end min-[500px]:items-center bg-black/50'>
       <CSSTransition
         nodeRef={nodeRef}
         in={modalCtx?.modalState.isOpen}

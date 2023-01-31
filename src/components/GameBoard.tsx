@@ -19,6 +19,7 @@ const GameBoard = () => {
     evaluations,
     error,
     message,
+    clipboardMessage,
     gameState,
     letterStatus,
     answer,
@@ -43,13 +44,20 @@ const GameBoard = () => {
   return (
     <>
       <div className='flex flex-col w-full max-w-[500px] m-auto h-[calc(100%-40px)] min-[415px]:h-[calc(100%-64px)]'>
-        <div className='absolute top[10%] left-1/2 translate-x-[-50%] w-auto inline-block z-40'>
-          {(error || message) && (
+        {(error || message) && (
+          <div className='absolute top[10%] left-1/2 translate-x-[-50%] w-auto inline-block z-40'>
             <div className='relative m-4 p-4 rounded font-bold text-white bg-custom-black dark:text-black dark:bg-white opacity-100 transition-opacity'>
               {error || message}
             </div>
-          )}
-        </div>
+          </div>
+        )}
+        {clipboardMessage && (
+          <div className='absolute top[10%] left-1/2 translate-x-[-50%] w-auto inline-block z-50'>
+            <div className='relative m-4 p-4 rounded font-bold text-white bg-custom-black dark:text-black dark:bg-white opacity-100 transition-opacity'>
+              {clipboardMessage}
+            </div>
+          </div>
+        )}
         <Grid
           currentGuess={currentGuess}
           board={board}
