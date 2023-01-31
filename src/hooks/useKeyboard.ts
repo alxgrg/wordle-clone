@@ -34,6 +34,8 @@ const initialStats = {
   averageGuesses: 0,
 };
 
+let returningPlayer = false;
+
 export const useKeyboard = () => {
   const [currentGuess, setCurrentGuess] = useState('');
   const [board, setBoard] = useState(['', '', '', '', '', '']);
@@ -75,6 +77,13 @@ export const useKeyboard = () => {
 
   // If so set it to false after loading
   useEffect(() => {
+    const rawGameState = localStorage.getItem('gameState');
+    if (rawGameState) {
+      const parsedGameState = JSON.parse(rawGameState) as GameState;
+      if (parsedGameState.hasPlayed && firstRender.current) {
+        returningPlayer = true;
+      }
+    }
     if (firstRender.current) {
       firstRender.current = false;
     }
@@ -127,12 +136,14 @@ export const useKeyboard = () => {
   }, [modalCtx, setStatistics]);
 
   useEffect(() => {
-    if (gameState === 'win') {
+    if (gameState !== 'active') {
       const rawGameState = localStorage.getItem('gameState');
       if (rawGameState) {
         const parsedGameState = JSON.parse(rawGameState) as GameState;
         // Change delay of statistics modal if returning to board
-        if (parsedGameState.hasPlayed) {
+        if (parsedGameState.hasPlayed && returningPlayer) {
+          console.log('gfjfghjf');
+
           const timer = setTimeout(
             () => open('statistics'),
             revealAnimationDuration - 600
@@ -244,7 +255,7 @@ export const useKeyboard = () => {
   useEffect(() => {
     let timer: ReturnType<typeof setTimeout>;
 
-    if (currentRowIndex > 5 && board[5] !== answer) {
+    if (currentRowIndex > 5 && board[5] !== answer && !returningPlayer) {
       timer = setTimeout(() => setMessage(answer), revealAnimationDuration);
       console.log(currentRowIndex);
     }

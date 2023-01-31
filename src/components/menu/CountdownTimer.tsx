@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 const CountdownTimer = () => {
-  const [timeRemaining, setTimeRemaining] = useState('24:00:00');
+  const [timeRemaining, setTimeRemaining] = useState<string | null>(null);
 
   useEffect(() => {
     const now = new Date();
@@ -13,10 +13,19 @@ const CountdownTimer = () => {
       0,
       0
     );
-    const timeLeft = midnight.getTime() - now.getTime();
-    let secondsLeft = Math.floor(timeLeft / 1000);
+    let secondsLeft = Math.floor((midnight.getTime() - now.getTime()) / 1000);
+
+    const hours = Math.floor(secondsLeft / 3600);
+    const minutes = Math.floor((secondsLeft % 3600) / 60);
+    const secs = secondsLeft % 60;
+    setTimeRemaining(
+      `${hours.toString().padStart(2, '0')}:${minutes
+        .toString()
+        .padStart(2, '0')}:${secs.toString().padStart(2, '0')}`
+    );
 
     const intervalId = setInterval(() => {
+      secondsLeft--;
       const hours = Math.floor(secondsLeft / 3600);
       const minutes = Math.floor((secondsLeft % 3600) / 60);
       const secs = secondsLeft % 60;
@@ -25,7 +34,6 @@ const CountdownTimer = () => {
           .toString()
           .padStart(2, '0')}:${secs.toString().padStart(2, '0')}`
       );
-      secondsLeft--;
 
       if (secondsLeft === 0) {
         clearInterval(intervalId);
