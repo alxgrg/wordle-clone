@@ -23,8 +23,6 @@ const Keyboard = ({
 
   return (
     <div className='font-bold text-sm h-[200px] mx-2'>
-      {'revealing?: ' + isRevealing}
-
       <div className='flex mb-2'>
         {rows[0].map((letter) => {
           return (

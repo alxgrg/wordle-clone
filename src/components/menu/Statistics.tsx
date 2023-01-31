@@ -1,3 +1,4 @@
+import { useSettings } from '../../context/SettingsContext';
 import { useStatistics } from '../../context/StatisticsContext';
 
 const Statistics = ({
@@ -6,6 +7,17 @@ const Statistics = ({
   todaysWinningGuessIndex: number | null;
 }) => {
   const { statistics } = useStatistics();
+
+  // Check for color blind mode and set highlight color accordingly
+  const { settings } = useSettings();
+
+  const { highContrast } = settings;
+
+  let highlightColor = 'bg-custom-green';
+
+  if (highContrast) {
+    highlightColor = 'bg-custom-orange';
+  }
 
   // Get number of guesses it took player to win each respective game and get percentage for guess distribution bar graph
   const guessDistribution = () => {
@@ -77,7 +89,7 @@ const Statistics = ({
                 style={{ width: percentages[i] + '%' }}
                 className={`flex justify-end h-full relative ${
                   todaysWinningGuessIndex === i
-                    ? 'bg-custom-green'
+                    ? highlightColor
                     : 'bg-custom-gray'
                 }`}
               >

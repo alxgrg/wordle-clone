@@ -1,4 +1,16 @@
+import { useSettings } from '../../context/SettingsContext';
+
 const Help = () => {
+  const { settings } = useSettings();
+  const { highContrast } = settings;
+
+  let correct = 'correct';
+  let present = 'present';
+  if (highContrast) {
+    correct = 'correct-colorblind';
+    present = 'present-colorblind';
+  }
+
   return (
     <div className='flex flex-col p-8 justify-center items-start'>
       <h1 className='font-bold text-3xl text-left mt-7 mb-1'>How To Play</h1>
@@ -22,7 +34,7 @@ const Help = () => {
                   style={{
                     animation: `FlipIn 300ms ease-in 300ms forwards, FlipOut 300ms ease-in 300ms forwards`,
                   }}
-                  className={`before:pb-[100%] before:inline-block inline-flex w-full box-border border-2 border-zinc-700 text-[1.6rem] align-middle justify-center leading-4 uppercase font-bold items-center correct dark:text-white text-black`}
+                  className={`before:pb-[100%] before:inline-block inline-flex w-full box-border border-2 border-zinc-700 text-[1.6rem] align-middle justify-center leading-4 uppercase font-bold items-center dark:text-white text-black ${correct}`}
                 >
                   W
                 </div>
@@ -72,7 +84,7 @@ const Help = () => {
                   style={{
                     animation: `FlipIn 300ms ease-in 300ms forwards, FlipOut 300ms ease-in 300ms forwards`,
                   }}
-                  className={`before:pb-[100%] before:inline-block inline-flex w-full box-border border-2 border-zinc-700 text-[1.6rem] align-middle justify-center leading-4 uppercase font-bold items-center present`}
+                  className={`before:pb-[100%] before:inline-block inline-flex w-full box-border border-2 border-zinc-700 text-[1.6rem] align-middle justify-center leading-4 uppercase font-bold items-center ${present}`}
                 >
                   I
                 </div>
