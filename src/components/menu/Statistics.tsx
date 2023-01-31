@@ -70,7 +70,7 @@ const Statistics = ({
       </h2>
       <div className='flex flex-col w-4/5'>
         {guessValues.map((guess, i) => (
-          <div className='w-full h-5 flex items-center pb-1' key={i}>
+          <div className='w-full h-[22px] flex items-center pb-1' key={i}>
             <div className='text-xs tracking-widest'>{i + 1}</div>
             <div className='w-full h-full pl-2'>
               <div

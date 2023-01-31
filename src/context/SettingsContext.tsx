@@ -107,10 +107,23 @@ const useSettingsData = () => {
     // }
   };
 
+  const toggleHighContrast = () => {
+    const { hardMode, darkTheme, highContrast } = settings;
+    const newSettings = {
+      hardMode,
+      darkTheme,
+      highContrast: !highContrast,
+      initialized: true,
+    };
+
+    setSettings(newSettings);
+  };
+
   return {
     settings,
     toggleHardMode,
     toggleDarkTheme,
+    toggleHighContrast,
     message,
   };
 };
@@ -136,12 +149,19 @@ export const useSettings = () => {
   if (!settingsCtx) {
     throw new Error('Settings context does not exist');
   }
-  const { settings, toggleHardMode, toggleDarkTheme, message } = settingsCtx;
+  const {
+    settings,
+    toggleHardMode,
+    toggleDarkTheme,
+    toggleHighContrast,
+    message,
+  } = settingsCtx;
 
   return {
     settings,
     toggleHardMode,
     toggleDarkTheme,
+    toggleHighContrast,
     message,
   };
 };

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useSettings } from '../../context/SettingsContext';
 import { GameState } from '../../lib/localStorage';
 import GridTile from './GridTile';
 
@@ -11,6 +12,10 @@ type Props = {
 
 const GridRow = ({ guess, evaluations, error, gameState }: Props) => {
   const [hasPlayed, setHasPlayed] = useState(false);
+
+  const { settings } = useSettings();
+  const { highContrast } = settings;
+
   const isWinner =
     !evaluations.includes(undefined) &&
     evaluations.every((status) => status === 'correct');
@@ -32,16 +37,24 @@ const GridRow = ({ guess, evaluations, error, gameState }: Props) => {
     <div
       className={`grid grid-cols-5 gap-[5px] ${error ? 'animate-shake' : ''}`}
     >
-      {Array.from(Array(5)).map((tile, i) => (
-        <GridTile
-          key={i}
-          letter={guess[i]}
-          delay={i}
-          status={evaluations[i]}
-          isWinner={isWinner}
-          hasPlayed={hasPlayed}
-        />
-      ))}
+      {Array.from(Array(5)).map((tile, i) => {
+        let status = evaluations[i];
+        if (highContrast && status) {
+          status = status.concat('-colorblind');
+          console.log('status', status);
+        }
+        return (
+          <GridTile
+            key={i}
+            letter={guess[i]}
+            highContrast={highContrast}
+            delay={i}
+            status={status}
+            isWinner={isWinner}
+            hasPlayed={hasPlayed}
+          />
+        );
+      })}
     </div>
   );
 };

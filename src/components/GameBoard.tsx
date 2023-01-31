@@ -22,6 +22,7 @@ const GameBoard = () => {
     gameState,
     letterStatus,
     answer,
+    isRevealing,
   } = useKeyboard();
   console.log('answer: ', answer);
 
@@ -59,6 +60,7 @@ const GameBoard = () => {
         <Keyboard
           letterStatus={letterStatus}
           handleLetterInput={handleLetterInput}
+          isRevealing={isRevealing}
         />
       </div>
       {modalCtx?.modalState.isOpen && (

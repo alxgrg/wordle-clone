@@ -7,9 +7,17 @@ type Props = {
   delay: number;
   isWinner: boolean;
   hasPlayed: boolean;
+  highContrast: boolean;
 };
 
-const GridTile = ({ letter, status, delay, isWinner, hasPlayed }: Props) => {
+const GridTile = ({
+  letter,
+  status,
+  delay,
+  isWinner,
+  hasPlayed,
+  highContrast,
+}: Props) => {
   const [statusClasses, setStatusClasses] = useState(status);
   const { firstRender } = useKeyboard();
   const [letterDelay, setLetterDelay] = useState(300);
@@ -39,14 +47,18 @@ const GridTile = ({ letter, status, delay, isWinner, hasPlayed }: Props) => {
       let winMessageDelay = 2000;
 
       timer = setTimeout(() => {
-        setStatusClasses('win');
+        if (highContrast) {
+          setStatusClasses('win-colorblind');
+        } else {
+          setStatusClasses('win');
+        }
       }, winMessageDelay);
     }
 
     return () => {
       clearTimeout(timer);
     };
-  }, [isWinner]);
+  }, [highContrast, isWinner]);
 
   // Change delay for win animation
   let adjustedDelay = delay * 2;

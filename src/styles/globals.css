@@ -61,6 +61,25 @@ a {
   /* animation: FlipIn 250ms ease-in forwards, FlipOut 250ms ease-in 250ms forwards; */
 }
 
+.win-colorblind {
+  --status: #f5793a;
+  background-color: #f5793a;
+  border-color: #f5793a;
+  color: #fff;
+}
+
+.correct-colorblind {
+  --status: #f5793a;
+}
+
+.present-colorblind {
+  --status: #86c0f9;
+}
+
+.absent-colorblind {
+  --status: rgb(63 63 70);
+}
+
 @keyframes flip {
   0% {
     @apply bg-custom-black;

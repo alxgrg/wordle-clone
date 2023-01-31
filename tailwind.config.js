@@ -12,6 +12,8 @@ module.exports = {
         'custom-green': '#538d4e',
         'custom-yellow': '#b59f3b',
         'custom-gray': 'rgb(63 63 70)',
+        'custom-orange': '#f5793a',
+        'custom-blue': '#86c0f9',
       },
       keyframes: {
         popIn: {

@@ -8,6 +8,8 @@ const Key = ({
   value,
   isNotLetter,
   handleLetterInput,
+  highContrast,
+  isRevealing,
 }: {
   children: ReactNode;
   status?: LetterStatus[keyof LetterStatus];
@@ -15,11 +17,15 @@ const Key = ({
   value: string;
   isNotLetter?: boolean;
   handleLetterInput: (input: string) => void;
+  highContrast: boolean;
+  isRevealing: boolean;
 }) => {
   const [statusClasses, setStatusClasses] = useState('bg-neutral-500');
-  // const gameCtx = useContext(GameContext);
+  const [hcStatusClasses, setHcStatusClasses] = useState('bg-neutral-500');
+
   const [letterDelay, setLetterDelay] = useState(1800);
   const { firstRender } = useKeyboard();
+
   // Check if player is returning to a finished game and set key color delay accordingly
   useEffect(() => {
     if (firstRender) {
@@ -36,29 +42,40 @@ const Key = ({
   }, [firstRender]);
 
   useEffect(() => {
+    let delay = letterDelay;
+    if (!isRevealing) {
+      delay = 0;
+    }
+    if (firstRender.current) {
+      delay = 900;
+    }
+
     const timer = setTimeout(() => {
       if (status === 'correct') {
-        setStatusClasses('bg-custom-green text-white');
+        setHcStatusClasses('text-white bg-custom-orange');
+        setStatusClasses('text-white bg-custom-green');
       } else if (status === 'present') {
-        setStatusClasses('bg-custom-yellow text-white');
+        setHcStatusClasses('text-white bg-custom-blue');
+        setStatusClasses('text-white bg-custom-yellow');
       } else if (status === 'absent') {
-        setStatusClasses('bg-custom-gray text-white');
+        setHcStatusClasses('text-white bg-custom-gray');
+        setStatusClasses('text-white bg-custom-gray');
       }
     }, letterDelay);
 
     return () => {
       clearTimeout(timer);
     };
-  }, [letterDelay, status]);
+  }, [firstRender, highContrast, isRevealing, letterDelay, status]);
 
   return (
     <button
       onClick={() => handleLetterInput(value)}
       className={`h-[58px] rounded mr-[6px] last:mr-0 flex ${
         isNotLetter ? 'flex-[1.5_1_0%]' : 'flex-1'
-      } justify-center items-center dark:text-white text-black ${statusClasses} ${
-        classes ? classes : ''
-      }`}
+      } justify-center items-center dark:text-white text-black ${
+        highContrast ? hcStatusClasses : statusClasses
+      } ${classes ? classes : ''}`}
     >
       {children}
     </button>

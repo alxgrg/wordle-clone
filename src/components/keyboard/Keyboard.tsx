@@ -1,4 +1,5 @@
 import { BackspaceIcon } from '@heroicons/react/24/outline';
+import { useSettings } from '../../context/SettingsContext';
 import { LetterStatus } from '../../hooks/useKeyboard';
 import Key from './Key';
 
@@ -11,12 +12,19 @@ const rows = [
 const Keyboard = ({
   letterStatus,
   handleLetterInput,
+  isRevealing,
 }: {
   letterStatus: LetterStatus;
   handleLetterInput: (input: string) => void;
+  isRevealing: boolean;
 }) => {
+  const { settings } = useSettings();
+  const { highContrast } = settings;
+
   return (
     <div className='font-bold text-sm h-[200px] mx-2'>
+      {'revealing?: ' + isRevealing}
+
       <div className='flex mb-2'>
         {rows[0].map((letter) => {
           return (
@@ -25,6 +33,8 @@ const Keyboard = ({
               status={letterStatus[letter]}
               value={letter}
               handleLetterInput={handleLetterInput}
+              highContrast={highContrast}
+              isRevealing={isRevealing}
             >
               {letter}
             </Key>
@@ -39,6 +49,8 @@ const Keyboard = ({
             status={letterStatus[letter]}
             value={letter}
             handleLetterInput={handleLetterInput}
+            highContrast={highContrast}
+            isRevealing={isRevealing}
           >
             {letter}
           </Key>
@@ -51,6 +63,8 @@ const Keyboard = ({
           value='ENTER'
           isNotLetter={true}
           handleLetterInput={handleLetterInput}
+          highContrast={highContrast}
+          isRevealing={isRevealing}
         >
           ENTER
         </Key>
@@ -60,6 +74,8 @@ const Keyboard = ({
             status={letterStatus[letter]}
             value={letter}
             handleLetterInput={handleLetterInput}
+            highContrast={highContrast}
+            isRevealing={isRevealing}
           >
             {letter}
           </Key>
@@ -69,6 +85,8 @@ const Keyboard = ({
           value='BACKSPACE'
           isNotLetter={true}
           handleLetterInput={handleLetterInput}
+          highContrast={highContrast}
+          isRevealing={isRevealing}
         >
           <BackspaceIcon className='h-6 w-6 text-black dark:text-white' />
         </Key>

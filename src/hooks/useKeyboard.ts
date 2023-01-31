@@ -462,6 +462,7 @@ export const useKeyboard = () => {
     answer,
     statistics,
     firstRender,
+    isRevealing,
   };
 
   return gameData;
