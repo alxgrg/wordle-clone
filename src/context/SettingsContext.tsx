@@ -13,6 +13,7 @@ const useSettingsData = () => {
   const [darkTheme, setDarkTheme] = useState(false);
   const [highContrast, setHighContrast] = useState(false);
   const [message, setMessage] = useState('');
+  const [animationDisabled, setAnimationDisabled] = useState(false);
 
   const [settings, setSettings] = useState({
     hardMode: false,
@@ -108,6 +109,10 @@ const useSettingsData = () => {
   };
 
   const toggleHighContrast = () => {
+    setAnimationDisabled(true);
+    setTimeout(() => {
+      setAnimationDisabled(false);
+    }, 3000);
     const { hardMode, darkTheme, highContrast } = settings;
     const newSettings = {
       hardMode,
@@ -125,6 +130,7 @@ const useSettingsData = () => {
     toggleDarkTheme,
     toggleHighContrast,
     message,
+    animationDisabled,
   };
 };
 
@@ -155,6 +161,7 @@ export const useSettings = () => {
     toggleDarkTheme,
     toggleHighContrast,
     message,
+    animationDisabled,
   } = settingsCtx;
 
   return {
@@ -163,5 +170,6 @@ export const useSettings = () => {
     toggleDarkTheme,
     toggleHighContrast,
     message,
+    animationDisabled,
   };
 };

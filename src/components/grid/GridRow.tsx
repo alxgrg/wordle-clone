@@ -13,7 +13,7 @@ type Props = {
 const GridRow = ({ guess, evaluations, error, gameState }: Props) => {
   const [hasPlayed, setHasPlayed] = useState(false);
 
-  const { settings } = useSettings();
+  const { settings, animationDisabled } = useSettings();
   const { highContrast } = settings;
 
   const isWinner =
@@ -30,7 +30,6 @@ const GridRow = ({ guess, evaluations, error, gameState }: Props) => {
         setHasPlayed(true);
       }
     }
-    console.log('gameState', gameState);
   }, [gameState]);
 
   return (
@@ -41,7 +40,6 @@ const GridRow = ({ guess, evaluations, error, gameState }: Props) => {
         let status = evaluations[i];
         if (highContrast && status) {
           status = status.concat('-colorblind');
-          console.log('status', status);
         }
         return (
           <GridTile
@@ -52,6 +50,7 @@ const GridRow = ({ guess, evaluations, error, gameState }: Props) => {
             status={status}
             isWinner={isWinner}
             hasPlayed={hasPlayed}
+            animationDisabled={animationDisabled}
           />
         );
       })}

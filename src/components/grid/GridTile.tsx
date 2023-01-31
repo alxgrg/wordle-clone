@@ -8,7 +8,10 @@ type Props = {
   isWinner: boolean;
   hasPlayed: boolean;
   highContrast: boolean;
+  animationDisabled: boolean;
 };
+
+let disabled = false;
 
 const GridTile = ({
   letter,
@@ -17,6 +20,7 @@ const GridTile = ({
   isWinner,
   hasPlayed,
   highContrast,
+  animationDisabled,
 }: Props) => {
   const [statusClasses, setStatusClasses] = useState(status);
   const { firstRender } = useKeyboard();
@@ -72,13 +76,29 @@ const GridTile = ({
     animation: `FlipIn 250ms ease-in ${extraDelay}ms forwards, FlipOut 250ms ease-in ${extraDelay2}ms forwards`,
   };
 
+  // Disable win animation after it has played so it does not replay if color blind mode is toggled
+  const handleAnimationEnd = () => {
+    if (isWinner) {
+      setTimeout(() => {
+        disabled = true;
+      }, 3000);
+    }
+  };
+
   return (
     <div className={`block ${letter ? 'animate-popIn' : ''}`}>
       <div
         style={{ animationDelay: ' ' + adjustedDelay + '00ms' }}
+        onAnimationEnd={handleAnimationEnd}
         className={`${
-          (statusClasses && statusClasses === 'win' && !hasPlayed) ||
-          (statusClasses && statusClasses === 'win-colorblind' && !hasPlayed)
+          (statusClasses &&
+            statusClasses === 'win' &&
+            !hasPlayed &&
+            !disabled) ||
+          (statusClasses &&
+            statusClasses === 'win-colorblind' &&
+            !hasPlayed &&
+            !disabled)
             ? statusClasses + ' winAnimation'
             : statusClasses
             ? statusClasses
