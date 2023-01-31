@@ -62,7 +62,7 @@ const GridTile = ({
 
   // Change delay for win animation
   let adjustedDelay = delay * 2;
-  if (statusClasses === 'win') {
+  if (statusClasses === 'win' || statusClasses === 'win-colorblind') {
     adjustedDelay = delay;
   }
   let extraDelay = delay * letterDelay;
@@ -77,7 +77,8 @@ const GridTile = ({
       <div
         style={{ animationDelay: ' ' + adjustedDelay + '00ms' }}
         className={`${
-          statusClasses && statusClasses === 'win' && !hasPlayed
+          (statusClasses && statusClasses === 'win' && !hasPlayed) ||
+          (statusClasses && statusClasses === 'win-colorblind' && !hasPlayed)
             ? statusClasses + ' winAnimation'
             : statusClasses
             ? statusClasses

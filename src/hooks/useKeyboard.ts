@@ -88,14 +88,21 @@ export const useKeyboard = () => {
   useEffect(() => {
     const savedGame = loadGame();
 
-    if (!savedGame) {
+    let statsFromLocalStorage: Statistics | null = null;
+
+    const rawStats = localStorage.getItem('statistics');
+    if (rawStats) {
+      statsFromLocalStorage = JSON.parse(rawStats) as Statistics;
+    }
+
+    if (!savedGame && !rawStats) {
       modalCtx?.open('help');
     }
-    if (savedGame && !savedGame.lastPlayedTs && isNewPlayer) {
+    if (savedGame && !savedGame.lastPlayedTs && isNewPlayer && !rawStats) {
       modalCtx?.open('help');
       setIsNewPlayer(false);
     }
-  }, [isNewPlayer, modalCtx]);
+  }, [isNewPlayer, modalCtx, statistics.gamesPlayed]);
 
   // If player has saved game in local storage initialize game state
   useEffect(() => {
@@ -123,10 +130,11 @@ export const useKeyboard = () => {
       const rawGameState = localStorage.getItem('gameState');
       if (rawGameState) {
         const parsedGameState = JSON.parse(rawGameState) as GameState;
+        // Change delay of statistics modal if returning to board
         if (parsedGameState.hasPlayed) {
           const timer = setTimeout(
             () => open('statistics'),
-            revealAnimationDuration - 800
+            revealAnimationDuration - 600
           );
           return () => {
             clearTimeout(timer);

@@ -33,7 +33,7 @@ const Key = ({
     }
 
     const timer = setTimeout(() => {
-      setLetterDelay(1800);
+      setLetterDelay(1500);
     }, 2000);
 
     return () => {
@@ -42,13 +42,13 @@ const Key = ({
   }, [firstRender]);
 
   useEffect(() => {
-    let delay = letterDelay;
-    if (!isRevealing) {
-      delay = 0;
-    }
-    if (firstRender.current) {
-      delay = 900;
-    }
+    // let delay = letterDelay;
+    // if (!isRevealing) {
+    //   delay = 0;
+    // }
+    // if (firstRender.current) {
+    //   delay = 900;
+    // }
 
     const timer = setTimeout(() => {
       if (status === 'correct') {
