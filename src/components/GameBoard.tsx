@@ -23,6 +23,7 @@ const GameBoard = () => {
     letterStatus,
     answer,
     isRevealing,
+    handleShare,
   } = useKeyboard();
   console.log('answer: ', answer);
 
@@ -70,6 +71,8 @@ const GameBoard = () => {
               todaysWinningGuessIndex={
                 gameState === 'win' ? currentRowIndex - 1 : null
               }
+              onShare={handleShare}
+              gameState={gameState}
             />
           )}
           {modalCtx?.modalState.content === 'settings' && (

@@ -7,6 +7,7 @@ import { getStats, Statistics } from '../lib/getStats';
 import { useStatistics } from '../context/StatisticsContext';
 import { ModalContext, useModal } from '../context/ModalContext';
 import { useSettings } from '../context/SettingsContext';
+import { getDaysSinceStart } from '../lib/dateHelpers';
 
 export type LetterStatus = {
   [letter: string]: string;
@@ -57,7 +58,7 @@ export const useKeyboard = () => {
 
   // Get settings context
   const { settings, message: settingsMessage } = useSettings();
-  const { hardMode } = settings;
+  const { hardMode, highContrast } = settings;
 
   // Get todays solution
   const answer = getSolution();
@@ -298,18 +299,6 @@ export const useKeyboard = () => {
     // Check if guess is correct
     if (guess === answer) {
       setGameState('win');
-      // Update local storage
-      // saveToLocalStorage('gameState', {
-      //   board,
-      //   evaluations,
-      //   currentRowIndex: currentRowIndex + 1,
-      //   gameState: 'win',
-      //   letterStatus,
-      //   lastPlayedTs: currentDate,
-      //   lastCompletedTs: currentDate,
-      //   hasPlayed: true,
-      // });
-      // setCurrentRowIndex((prev) => prev + 1);
 
       const stats = getStats({ status: 'win', currentRowIndex });
       setStatistics(stats);
@@ -456,6 +445,35 @@ export const useKeyboard = () => {
     handleLetterInput(key);
   };
 
+  const handleShare = async () => {
+    const gameNumber = getDaysSinceStart() + 1;
+
+    let result = `Wordle ${gameNumber} ${
+      currentRowIndex < 7 && gameState === 'win' ? currentRowIndex : 'X'
+    }/6\n`;
+
+    let tiles = '';
+
+    for (let i = 0; i < evaluations.length; i++) {
+      const row = evaluations[i];
+      // if row has null values dont add linebreak
+      if (row[0]) {
+        tiles = tiles.concat('\n');
+      }
+      row.forEach((char) => {
+        if (char === 'correct') {
+          tiles = highContrast ? tiles.concat('🟧') : tiles.concat('🟩');
+        } else if (char === 'present') {
+          tiles = highContrast ? tiles.concat('🟦') : tiles.concat('🟨');
+        } else if (char === 'absent') {
+          tiles = tiles.concat('⬛');
+        }
+      });
+    }
+    await navigator.clipboard.writeText(result + tiles);
+    setMessage('Copied results to clipboard');
+  };
+
   const gameData = {
     handleKeyDown,
     handleLetterInput,
@@ -471,6 +489,7 @@ export const useKeyboard = () => {
     statistics,
     firstRender,
     isRevealing,
+    handleShare,
   };
 
   return gameData;

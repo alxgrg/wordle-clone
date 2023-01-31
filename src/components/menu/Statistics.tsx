@@ -1,10 +1,17 @@
+import { ShareIcon } from '@heroicons/react/24/outline';
 import { useSettings } from '../../context/SettingsContext';
 import { useStatistics } from '../../context/StatisticsContext';
+import { Evaluations } from '../../hooks/useKeyboard';
+import { copyToClipboard } from '../../lib/copyToClipboard';
 
 const Statistics = ({
   todaysWinningGuessIndex,
+  gameState,
+  onShare,
 }: {
   todaysWinningGuessIndex: number | null;
+  gameState: string;
+  onShare: () => void;
 }) => {
   const { statistics } = useStatistics();
 
@@ -80,7 +87,7 @@ const Statistics = ({
       <h2 className='mb-2 text-center font-bold text-sm mt-3'>
         GUESS DISTRIBUTION
       </h2>
-      <div className='flex flex-col w-4/5'>
+      <div className='flex flex-col w-4/5 pb-3'>
         {guessValues.map((guess, i) => (
           <div className='w-full h-[22px] flex items-center pb-1' key={i}>
             <div className='text-xs tracking-widest'>{i + 1}</div>
@@ -99,6 +106,27 @@ const Statistics = ({
           </div>
         ))}
       </div>
+
+      {gameState !== 'active' && (
+        <div className='flex w-full'>
+          <div className='pr-3 w-1/2 border-r'>
+            <h2 className='text-center uppercase font-bold'>Next Wordle</h2>
+          </div>
+          <div className='w-1/2 pl-3 flex items-center justify-center'>
+            <button
+              className={`flex justify-center items-center w-4/5 rounded h-[52px] uppercase font-bold text-xl ${
+                highContrast ? 'bg-custom-orange' : 'bg-custom-green'
+              }`}
+              onClick={() => onShare()}
+            >
+              Share{' '}
+              <span className='pl-2'>
+                <ShareIcon className='h-6 w-6' />
+              </span>
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
