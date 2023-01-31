@@ -47,61 +47,61 @@ const Statistics = ({
   const { guessValues, percentages } = guessDistribution();
 
   return (
-    <div className='flex flex-col px-4 pb-8 pt-8 justify-center items-center'>
+    <div className='flex flex-col items-center justify-center px-4 pb-8 pt-8'>
       {/* Statistics */}
-      <h2 className='mb-2 text-center font-bold text-sm'>STATISTICS</h2>
+      <h2 className='mb-2 text-center text-sm font-bold'>STATISTICS</h2>
       <div className='flex flex-row'>
-        <div className='flex-1 ml-3'>
-          <div className='text-4xl text-center flex items-center justify-center'>
+        <div className='ml-3 flex-1'>
+          <div className='flex items-center justify-center text-center text-4xl'>
             {statistics.gamesPlayed}
           </div>
-          <div className='text-xs flex items-center justify-center text-center'>
+          <div className='flex items-center justify-center text-center text-xs'>
             Played
           </div>
         </div>
-        <div className='flex-1 ml-3'>
-          <div className='text-4xl text-center flex items-center justify-center'>
+        <div className='ml-3 flex-1'>
+          <div className='flex items-center justify-center text-center text-4xl'>
             {statistics.winPercentage}
           </div>
-          <div className='text-xs flex items-center justify-center text-center'>
+          <div className='flex items-center justify-center text-center text-xs'>
             Win %
           </div>
         </div>
-        <div className='flex-1 ml-3'>
-          <div className='text-4xl text-center flex items-center justify-center'>
+        <div className='ml-3 flex-1'>
+          <div className='flex items-center justify-center text-center text-4xl'>
             {statistics.currentStreak}
           </div>
-          <div className='text-xs flex items-center justify-center text-center'>
+          <div className='flex items-center justify-center text-center text-xs'>
             Current Streak
           </div>
         </div>
-        <div className='flex-1 ml-3'>
-          <div className='text-4xl text-center flex items-center justify-center'>
+        <div className='ml-3 flex-1'>
+          <div className='flex items-center justify-center text-center text-4xl'>
             {statistics.maxStreak}
           </div>
-          <div className='text-xs flex items-center justify-center text-center'>
+          <div className='flex items-center justify-center text-center text-xs'>
             Max Streak
           </div>
         </div>
       </div>
       {/* Guess distribution */}
-      <h2 className='mb-2 text-center font-bold text-sm mt-3'>
+      <h2 className='mb-2 mt-3 text-center text-sm font-bold'>
         GUESS DISTRIBUTION
       </h2>
-      <div className='flex flex-col w-4/5 pb-3'>
+      <div className='flex w-4/5 flex-col pb-3'>
         {guessValues.map((guess, i) => (
-          <div className='w-full h-6 flex items-center pb-1' key={i}>
+          <div className='flex h-6 w-full items-center pb-1' key={i}>
             <div className='text-xs tracking-widest'>{i + 1}</div>
-            <div className='w-full h-full pl-2'>
+            <div className='h-full w-full pl-2'>
               <div
                 style={{ width: percentages[i] + '%' }}
-                className={`flex justify-end h-full relative ${
+                className={`relative flex h-full justify-end ${
                   todaysWinningGuessIndex === i
                     ? highlightColor
                     : 'bg-custom-gray'
                 }`}
               >
-                <div className='text-xs font-bold pr-2 text-white'>{guess}</div>
+                <div className='pr-2 text-xs font-bold text-white'>{guess}</div>
               </div>
             </div>
           </div>
@@ -110,15 +110,15 @@ const Statistics = ({
 
       {gameState !== 'active' && (
         <div className='flex w-full'>
-          <div className='pr-3 w-1/2 border-r dark:border-white border-black'>
-            <h2 className='text-center uppercase font-bold'>Next Wordle</h2>
+          <div className='w-1/2 border-r border-black pr-3 dark:border-white'>
+            <h2 className='text-center font-bold uppercase'>Next Wordle</h2>
             <div>
               <CountdownTimer />
             </div>
           </div>
-          <div className='w-1/2 pl-3 flex items-center justify-center'>
+          <div className='flex w-1/2 items-center justify-center pl-3'>
             <button
-              className={`flex justify-center items-center w-4/5 rounded h-[52px] uppercase font-bold text-xl text-white ${
+              className={`flex h-[52px] w-4/5 items-center justify-center rounded text-xl font-bold uppercase text-white ${
                 highContrast ? 'bg-custom-orange' : 'bg-custom-green'
               }`}
               onClick={() => onShare()}

@@ -1,137 +1,69 @@
-// type Props = {
-//   currentGuess: string;
-//   previousGuesses: string[];
-//   evaluations: (string | undefined)[][];
-// };
-
-// const satisfiesHardMode = ({
-//   currentGuess,
-//   previousGuesses,
-//   evaluations,
-// }: Props) => {
-//   // go through previous guesses and find first occurance of a correct letter
-//   for (let i = 0; i < previousGuesses.length; i++) {
-//     const prevGuess = previousGuesses[i];
-//     const prevGuessArr = previousGuesses[i].split('');
-
-//     if (evaluations[i].includes('correct')) {
-//       for (let j = 0; j < prevGuessArr.length; j++) {
-//         const letter = prevGuessArr[j];
-//         const evaluation = evaluations[i][j];
-
-//         if (evaluation === 'correct') {
-//           // check if guess has letter in correct position
-//           if (currentGuess.split('')[j] !== letter) {
-//             const letterPosition = j + 1;
-//             let numberWording = '';
-//             switch (letterPosition) {
-//               case 1:
-//                 numberWording = 'st';
-//                 break;
-//               case 2:
-//                 numberWording = 'nd';
-//                 break;
-//               case 3:
-//                 numberWording = 'rd';
-//                 break;
-//               default:
-//                 numberWording = 'th';
-//                 break;
-//             }
-//             console.log(
-//               letterPosition,
-//               numberWording,
-//               ' letter must be ',
-//               letter
-//             );
-
-//             return {
-//               message:
-//                 letterPosition + numberWording + ' letter must be ' + letter,
-//             };
-//           }
-//         }
-//       }
-//     }
-//   }
-//   return {
-//     message: '',
-//   };
-// };
-
-// export default satisfiesHardMode;
-
 type Props = {
   currentGuess: string;
-  previousGuesses: string[];
-  evaluations: (string | undefined)[][];
+  previousGuess: string;
+  evaluations: (string | undefined)[];
 };
 
 const satisfiesHardMode = ({
   currentGuess,
-  previousGuesses,
+  previousGuess,
   evaluations,
 }: Props) => {
-  // go through previous guesses and find first occurance of a correct letter
-  for (let i = 0; i < previousGuesses.length; i++) {
-    const prevGuess = previousGuesses[i];
-    const prevGuessArr = previousGuesses[i].split('');
+  if (!previousGuess) {
+    return;
+  }
+  const currentGuessArray = currentGuess.split('');
+  const previousGuessArray = previousGuess.split('');
 
-    if (evaluations[i].includes('correct')) {
-      for (let j = 0; j < prevGuessArr.length; j++) {
-        const letter = prevGuessArr[j];
-        const evaluation = evaluations[i][j];
-
-        if (evaluation === 'correct') {
-          // check if guess has letter in correct position
-          if (currentGuess.split('')[j] !== letter) {
-            const letterPosition = j + 1;
-            let numberWording = '';
-            switch (letterPosition) {
-              case 1:
-                numberWording = 'st';
-                break;
-              case 2:
-                numberWording = 'nd';
-                break;
-              case 3:
-                numberWording = 'rd';
-                break;
-              default:
-                numberWording = 'th';
-                break;
-            }
-            console.log(
-              letterPosition,
-              numberWording,
-              ' letter must be ',
-              letter
-            );
-
-            return {
-              message:
-                letterPosition + numberWording + ' letter must be ' + letter,
-            };
-          }
+  if (evaluations.includes('correct')) {
+    for (let i = 0; i < currentGuessArray.length; i++) {
+      const currentGuessLetter = currentGuessArray[i];
+      const previousGuessLetter = previousGuessArray[i];
+      if (
+        evaluations[i] === 'correct' &&
+        currentGuessLetter !== previousGuessLetter
+      ) {
+        const letterPosition = i + 1;
+        let numberWording = '';
+        switch (letterPosition) {
+          case 1:
+            numberWording = 'st';
+            break;
+          case 2:
+            numberWording = 'nd';
+            break;
+          case 3:
+            numberWording = 'rd';
+            break;
+          default:
+            numberWording = 'th';
+            break;
         }
-      }
-    }
-    if (evaluations[i].includes('present')) {
-      for (let j = 0; j < prevGuessArr.length; j++) {
-        const letter = prevGuessArr[j];
-        const evaluation = evaluations[i][j];
 
-        if (evaluation === 'present') {
-          // check if guess has letter in correct position
-          if (!currentGuess.split('').includes(letter)) {
-            return {
-              message: 'Guess must contain ' + letter,
-            };
-          }
-        }
+        return {
+          message:
+            letterPosition +
+            numberWording +
+            ' letter must be ' +
+            previousGuessLetter,
+        };
       }
     }
   }
+
+  // Check for present letters
+  for (let i = 0; i < evaluations.length; i++) {
+    const evaluation = evaluations[i];
+
+    if (evaluation === 'present') {
+      if (!currentGuessArray.includes(previousGuessArray[i])) {
+        return {
+          message: 'Guess must contain ' + previousGuessArray[i],
+        };
+      }
+    }
+  }
+
   return {
     message: '',
   };

@@ -434,19 +434,21 @@ export const useKeyboard = () => {
       if (hardMode) {
         if (
           satisfiesHardMode({
-            evaluations,
-            previousGuesses: board,
+            evaluations: evaluations[currentRowIndex - 1],
+            previousGuess: board[currentRowIndex - 1],
             currentGuess,
           })?.message
         ) {
-          setError(
-            satisfiesHardMode({
-              evaluations,
-              previousGuesses: board,
-              currentGuess,
-            })?.message
-          );
-          return;
+          const msg = satisfiesHardMode({
+            evaluations: evaluations[currentRowIndex - 1],
+            previousGuess: board[currentRowIndex - 1],
+            currentGuess,
+          })?.message;
+
+          if (msg) {
+            setError(msg);
+            return;
+          }
         }
       }
 

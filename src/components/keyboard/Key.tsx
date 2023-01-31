@@ -33,7 +33,7 @@ const Key = ({
     }
 
     const timer = setTimeout(() => {
-      setLetterDelay(1500);
+      setLetterDelay(1700);
     }, 2000);
 
     return () => {
