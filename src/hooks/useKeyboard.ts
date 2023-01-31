@@ -346,8 +346,9 @@ export const useKeyboard = () => {
     }
 
     // Check for losing condition
-    if (currentRowIndex === 5 && guess !== answer) {
+    if (currentRowIndex >= 5 && guess !== answer) {
       setGameState('loss');
+
       // Save to local storage
       saveToLocalStorage('gameState', {
         board,
@@ -363,6 +364,7 @@ export const useKeyboard = () => {
       const stats = getStats({ status: 'loss', currentRowIndex });
       setStatistics(stats);
       localStorage.setItem('statistics', JSON.stringify(stats));
+      return;
     }
 
     saveToLocalStorage('gameState', {
