@@ -71,9 +71,9 @@ const Key = ({
   return (
     <button
       onClick={() => handleLetterInput(value)}
-      className={`h-[58px] rounded mr-[6px] last:mr-0 flex ${
+      className={`mr-[6px] flex h-[58px] rounded last:mr-0 ${
         isNotLetter ? 'flex-[1.5_1_0%]' : 'flex-1'
-      } justify-center items-center dark:text-white text-black ${
+      } items-center justify-center dark:text-white  ${
         highContrast ? hcStatusClasses : statusClasses
       } ${classes ? classes : ''}`}
     >
