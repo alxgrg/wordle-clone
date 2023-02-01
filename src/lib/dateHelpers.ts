@@ -18,5 +18,3 @@ export const datesAreOnSameDay = (lastPlayed: Date) =>
   currentDate.getFullYear() === lastPlayed.getFullYear() &&
   currentDate.getMonth() === lastPlayed.getMonth() &&
   currentDate.getDate() === lastPlayed.getDate();
-
-// console.log('datesAreOnSameDay: ', datesAreOnSameDay(currentDate));

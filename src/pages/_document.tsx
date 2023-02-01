@@ -9,7 +9,7 @@ export default function Document() {
         <Main />
         <NextScript />
         <div id='modal'></div>
-        <Script src='/theme.js' strategy='beforeInteractive' />
+        <Script src='/scripts/theme.js' strategy='beforeInteractive' />
       </body>
     </Html>
   );

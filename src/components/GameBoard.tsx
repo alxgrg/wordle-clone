@@ -26,7 +26,6 @@ const GameBoard = () => {
     isRevealing,
     handleShare,
   } = useKeyboard();
-  console.log('answer: ', answer);
 
   const modalCtx = useContext(ModalContext);
 
@@ -43,17 +42,17 @@ const GameBoard = () => {
 
   return (
     <>
-      <div className='flex flex-col w-full max-w-[500px] m-auto h-[calc(100%-40px)] min-[415px]:h-[calc(100%-64px)]'>
+      <div className='m-auto flex h-[calc(100%-40px)] w-full max-w-[500px] flex-col min-[415px]:h-[calc(100%-64px)]'>
         {(error || message) && (
-          <div className='absolute top[10%] left-1/2 translate-x-[-50%] w-auto inline-block z-40'>
-            <div className='relative m-4 p-4 rounded font-bold text-white bg-custom-black dark:text-black dark:bg-white opacity-100 transition-opacity'>
+          <div className='top[10%] absolute left-1/2 z-40 inline-block w-auto translate-x-[-50%]'>
+            <div className='relative m-4 rounded bg-custom-black p-4 font-bold text-white opacity-100 transition-opacity dark:bg-white dark:text-black'>
               {error || message}
             </div>
           </div>
         )}
         {clipboardMessage && (
-          <div className='absolute top[10%] left-1/2 translate-x-[-50%] w-auto inline-block z-50'>
-            <div className='relative m-4 p-4 rounded font-bold text-white bg-custom-black dark:text-black dark:bg-white opacity-100 transition-opacity'>
+          <div className='top[10%] absolute left-1/2 z-50 inline-block w-auto translate-x-[-50%]'>
+            <div className='relative m-4 rounded bg-custom-black p-4 font-bold text-white opacity-100 transition-opacity dark:bg-white dark:text-black'>
               {clipboardMessage}
             </div>
           </div>

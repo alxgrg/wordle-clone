@@ -1,8 +1,6 @@
 import { ShareIcon } from '@heroicons/react/24/outline';
 import { useSettings } from '../../context/SettingsContext';
 import { useStatistics } from '../../context/StatisticsContext';
-import { Evaluations } from '../../hooks/useKeyboard';
-import { copyToClipboard } from '../../lib/copyToClipboard';
 import CountdownTimer from './CountdownTimer';
 
 const Statistics = ({

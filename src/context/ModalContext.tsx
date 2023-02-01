@@ -22,8 +22,6 @@ const ModalProvider = ({ children }: { children: ReactNode }) => {
     setModalState({ isOpen: false, content: '' });
   }, []);
   const open = useCallback((content: string) => {
-    console.log('modal context');
-
     setModalState({ isOpen: true, content });
   }, []);
 

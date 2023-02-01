@@ -15,11 +15,12 @@ export default function Home() {
     let portrait = window.matchMedia('(orientation: portrait)');
 
     portrait.addEventListener('change', function (e) {
-      if (e.matches) {
-        setShowOrientationWarning(false);
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+      if (!e.matches && isMobile) {
+        setShowOrientationWarning(true);
       } else {
         // Landscape
-        setShowOrientationWarning(true);
+        setShowOrientationWarning(false);
       }
     });
   }, []);

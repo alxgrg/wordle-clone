@@ -74,7 +74,6 @@ export const useKeyboard = () => {
 
   // Check if initial page load
   const firstRender = useRef(true);
-  // console.log('first render', firstRender.current);
 
   // If so set it to false after loading
   useEffect(() => {
@@ -143,8 +142,6 @@ export const useKeyboard = () => {
         const parsedGameState = JSON.parse(rawGameState) as GameState;
         // Change delay of statistics modal if returning to board
         if (parsedGameState.hasPlayed && returningPlayer) {
-          console.log('gfjfghjf');
-
           const timer = setTimeout(
             () => open('statistics'),
             revealAnimationDuration - 600
@@ -268,7 +265,6 @@ export const useKeyboard = () => {
 
     if (currentRowIndex > 5 && board[5] !== answer && !returningPlayer) {
       timer = setTimeout(() => setMessage(answer), revealAnimationDuration);
-      console.log(currentRowIndex);
     }
     return () => {
       clearTimeout(timer);
@@ -284,12 +280,10 @@ export const useKeyboard = () => {
       letterStatus[guessLetter] !== 'correct'
     ) {
       tempLetterStatus[guessLetter] = status;
-      console.log(tempLetterStatus);
 
       setLetterStatus(tempLetterStatus);
     } else if (!letterStatus[guessLetter]) {
       tempLetterStatus[guessLetter] = status;
-      console.log(tempLetterStatus);
 
       setLetterStatus(tempLetterStatus);
     }
@@ -356,7 +350,6 @@ export const useKeyboard = () => {
             (l) => l === guessLetter
           );
           filteredAnswer.splice(removeIndex, 1);
-          console.log('filteredanswer: ', filteredAnswer);
         } else {
           // else set to absent
           handleLetterStatus(guessLetter, 'absent');
