@@ -16,15 +16,15 @@ const MainHeader = () => {
     <>
       <header className='flex h-[40px] w-full items-center justify-between border-b border-zinc-700 px-5 min-[415px]:h-[66px]'>
         <div className='flex justify-start pr-4 md:w-[120px]'>
-          <a href='https://github.com/alxgrg'>
-            <Image
+          <a className='hover:text-red-500' href='https://github.com/alxgrg'>
+            {/* <Image
               alt='github'
               src='/github-mark.svg'
               width={30}
               height={30}
               className='fill-white'
-            />
-            {/* <GithubLogo /> */}
+            /> */}
+            <GithubLogo />
           </a>
         </div>
         <div className='grow basis-1/2 text-left md:text-center'>
