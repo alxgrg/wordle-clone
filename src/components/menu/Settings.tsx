@@ -24,7 +24,7 @@ const Settings = ({
           <div className='flex items-center justify-between border-b border-custom-gray py-4'>
             <div className='pr-2'>
               <div className='text-lg'>Hard Mode</div>
-              <div className='text-xs text-gray-400'>
+              <div className='text-xs text-gray-500'>
                 Any revealed hints must be used in subsequent guesses
               </div>
             </div>
@@ -79,7 +79,7 @@ const Settings = ({
           <div className='flex items-center justify-between py-4'>
             <div className='pr-2'>
               <div className='text-lg'>Color Blind Mode</div>
-              <div className='text-xs text-gray-400'>High contrast colors</div>
+              <div className='text-xs text-gray-500'>High contrast colors</div>
             </div>
             <div className='flex justify-between'>
               <button
