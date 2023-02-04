@@ -36,6 +36,7 @@ const Modal = ({ children }: { children: ReactNode }) => {
   const handleClose = useCallback(() => {
     setExitClass('animate-slideOut');
     setTimeout(() => modalCtx?.close(), 200);
+    console.log('handleClose');
   }, [modalCtx]);
 
   useEffect(() => {
@@ -60,7 +61,11 @@ const Modal = ({ children }: { children: ReactNode }) => {
         classNames='modal'
         appear
       >
-        <FocusTrap>
+        <FocusTrap
+          focusTrapOptions={{
+            clickOutsideDeactivates: true,
+          }}
+        >
           <div
             onClick={(e) => e.stopPropagation()}
             ref={nodeRef}
