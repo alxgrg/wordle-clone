@@ -14,7 +14,7 @@ const MainHeader = () => {
 
   return (
     <>
-      <header className='flex h-[40px] w-full items-center justify-between border-b border-zinc-700 px-5 min-[415px]:h-[66px]'>
+      <header className='flex h-[40px] w-full items-center justify-between border-b border-gray-300 px-5 dark:border-zinc-700 min-[415px]:h-[66px]'>
         <div className='flex justify-start pr-4 md:w-[120px]'>
           <a
             className='hover:text-red-500'

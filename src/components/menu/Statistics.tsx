@@ -19,7 +19,7 @@ const Statistics = ({
 
   const { highContrast } = settings;
 
-  let highlightColor = 'bg-custom-green';
+  let highlightColor = 'dark:bg-custom-green-dark bg-custom-green';
 
   if (highContrast) {
     highlightColor = 'bg-custom-orange';
@@ -93,7 +93,7 @@ const Statistics = ({
             <div className='h-full w-full pl-2'>
               <div
                 style={{ width: percentages[i] + '%' }}
-                className={`relative flex h-full justify-end ${
+                className={`relative flex h-full items-center justify-end ${
                   todaysWinningGuessIndex === i
                     ? highlightColor
                     : 'bg-custom-gray'
@@ -117,7 +117,9 @@ const Statistics = ({
           <div className='flex w-1/2 items-center justify-center pl-3'>
             <button
               className={`flex h-[52px] w-4/5 items-center justify-center rounded text-xl font-bold uppercase text-white ${
-                highContrast ? 'bg-custom-orange' : 'bg-custom-green'
+                highContrast
+                  ? 'bg-custom-orange'
+                  : 'bg-custom-green dark:bg-custom-green-dark'
               }`}
               onClick={() => onShare()}
             >

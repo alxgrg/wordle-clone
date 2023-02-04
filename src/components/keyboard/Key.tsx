@@ -20,8 +20,12 @@ const Key = ({
   highContrast: boolean;
   isRevealing: boolean;
 }) => {
-  const [statusClasses, setStatusClasses] = useState('bg-neutral-500');
-  const [hcStatusClasses, setHcStatusClasses] = useState('bg-neutral-500');
+  const [statusClasses, setStatusClasses] = useState(
+    'dark:bg-neutral-500 bg-neutral-300'
+  );
+  const [hcStatusClasses, setHcStatusClasses] = useState(
+    'dark:bg-neutral-500 bg-neutral-300'
+  );
 
   const [letterDelay, setLetterDelay] = useState(1800);
   const { firstRender } = useKeyboard();
@@ -53,13 +57,19 @@ const Key = ({
     const timer = setTimeout(() => {
       if (status === 'correct') {
         setHcStatusClasses('text-white bg-custom-orange');
-        setStatusClasses('text-white bg-custom-green');
+        setStatusClasses(
+          'text-white dark:bg-custom-green-dark bg-custom-green'
+        );
       } else if (status === 'present') {
         setHcStatusClasses('text-white bg-custom-blue');
-        setStatusClasses('text-white bg-custom-yellow');
+        setStatusClasses(
+          'text-white dark:bg-custom-yellow-dark bg-custom-yellow'
+        );
       } else if (status === 'absent') {
-        setHcStatusClasses('text-white bg-custom-gray');
-        setStatusClasses('text-white bg-custom-gray');
+        setHcStatusClasses(
+          'text-white dark:bg-custom-gray-dark bg-custom-gray'
+        );
+        setStatusClasses('text-white dark:bg-custom-gray-dark bg-custom-gray');
       }
     }, letterDelay);
 

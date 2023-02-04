@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useSettings } from '../../context/SettingsContext';
 import { useKeyboard } from '../../hooks/useKeyboard';
 
 type Props = {
@@ -25,6 +26,10 @@ const GridTile = ({
   const [statusClasses, setStatusClasses] = useState(status);
   const { firstRender } = useKeyboard();
   const [letterDelay, setLetterDelay] = useState(300);
+
+  const settingsCtx = useSettings();
+  const { settings } = settingsCtx;
+  const { darkTheme } = settings;
 
   // Check if player is returning to a finished game and set flip animation delay accordingly
   useEffect(() => {
@@ -54,7 +59,7 @@ const GridTile = ({
         if (highContrast) {
           setStatusClasses('win-colorblind');
         } else {
-          setStatusClasses('win');
+          darkTheme ? setStatusClasses('win-dark') : setStatusClasses('win');
         }
       }, winMessageDelay);
     }
@@ -62,7 +67,7 @@ const GridTile = ({
     return () => {
       clearTimeout(timer);
     };
-  }, [highContrast, isWinner]);
+  }, [darkTheme, highContrast, isWinner]);
 
   // Change delay for win animation
   let adjustedDelay = delay * 2;
@@ -107,10 +112,10 @@ const GridTile = ({
       >
         <div
           style={statusClasses ? extraStyles : undefined}
-          className={`before:pb-[100%] before:inline-block inline-flex w-full box-border border-2 border-zinc-700 text-[2rem] align-middle justify-center leading-4 uppercase font-bold items-center dark:text-white text-black ${
+          className={`box-border inline-flex w-full items-center justify-center border-2 border-zinc-700 align-middle text-[2rem] font-bold uppercase leading-4 text-black before:inline-block before:pb-[100%] dark:text-white ${
             letter
-              ? 'dark:border-zinc-600 border-zinc-500'
-              : 'dark:border-zinc-700 border-zinc-400'
+              ? 'border-zinc-500 dark:border-zinc-600'
+              : 'border-zinc-400 dark:border-zinc-700'
           }`}
         >
           {letter}

@@ -3,13 +3,20 @@ import GithubLogo from '../GithubLogo';
 
 const Help = () => {
   const { settings } = useSettings();
-  const { highContrast } = settings;
+  const { highContrast, darkTheme } = settings;
 
   let correct = 'correct';
   let present = 'present';
+  let absent = 'absent';
   if (highContrast) {
     correct = 'correct-colorblind';
     present = 'present-colorblind';
+    absent = 'absent-colorblind';
+  }
+  if (darkTheme) {
+    correct = correct.concat('-dark');
+    present = present.concat('-dark');
+    absent = absent.concat('-dark');
   }
 
   return (
@@ -142,7 +149,7 @@ const Help = () => {
                   style={{
                     animation: `FlipIn 300ms ease-in 300ms forwards, FlipOut 300ms ease-in 300ms forwards`,
                   }}
-                  className={`absent box-border inline-flex w-full items-center justify-center border-2 border-zinc-700 align-middle text-[1.6rem] font-bold uppercase leading-4 before:inline-block before:pb-[100%]`}
+                  className={`${absent} box-border inline-flex w-full items-center justify-center border-2 border-zinc-700 align-middle text-[1.6rem] font-bold uppercase leading-4 before:inline-block before:pb-[100%]`}
                 >
                   U
                 </div>

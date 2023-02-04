@@ -14,7 +14,7 @@ const GridRow = ({ guess, evaluations, error, gameState }: Props) => {
   const [hasPlayed, setHasPlayed] = useState(false);
 
   const { settings, animationDisabled } = useSettings();
-  const { highContrast } = settings;
+  const { highContrast, darkTheme } = settings;
 
   const isWinner =
     !evaluations.includes(undefined) &&
@@ -40,6 +40,9 @@ const GridRow = ({ guess, evaluations, error, gameState }: Props) => {
         let status = evaluations[i];
         if (highContrast && status) {
           status = status.concat('-colorblind');
+        }
+        if (darkTheme && status) {
+          status = status.concat('-dark');
         }
         return (
           <GridTile

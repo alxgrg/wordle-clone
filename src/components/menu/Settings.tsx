@@ -11,7 +11,7 @@ const Settings = ({
     useSettings();
   const { darkTheme, hardMode, highContrast } = settings;
 
-  let highlightClass = 'bg-custom-green';
+  let highlightClass = 'bg-custom-green dark:bg-custom-green-dark';
 
   if (highContrast) {
     highlightClass = 'bg-custom-orange';
@@ -36,7 +36,9 @@ const Settings = ({
                 aria-label='hardMode'
                 onClick={() => toggleHardMode(gameState, currentRowIndex)}
                 className={`relative h-5  w-8 rounded-full border-none ${
-                  !hardMode ? 'bg-custom-gray' : highlightClass
+                  !hardMode
+                    ? 'bg-custom-gray dark:bg-custom-gray-dark'
+                    : highlightClass
                 }`}
               >
                 <span
@@ -59,7 +61,9 @@ const Settings = ({
                 aria-label='darkTheme'
                 onClick={() => toggleDarkTheme()}
                 className={`relative h-5  w-8 rounded-full border-none ${
-                  !darkTheme ? 'bg-custom-gray' : highlightClass
+                  !darkTheme
+                    ? 'bg-custom-gray dark:bg-custom-gray-dark'
+                    : highlightClass
                 }`}
               >
                 <span
@@ -85,7 +89,9 @@ const Settings = ({
                 aria-label='colorBlindMode'
                 onClick={() => toggleHighContrast()}
                 className={`relative h-5  w-8 rounded-full border-none ${
-                  !highContrast ? 'bg-custom-gray' : highlightClass
+                  !highContrast
+                    ? 'bg-custom-gray dark:bg-custom-gray-dark'
+                    : highlightClass
                 }`}
               >
                 <span
