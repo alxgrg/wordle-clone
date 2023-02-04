@@ -658,7 +658,7 @@ export const useKeyboard = () => {
       if (!returningPlayer) {
       }
     }
-  }, []);
+  }, [gameState]);
 
   useEffect(() => {
     if (gameState !== 'active') {
@@ -668,14 +668,12 @@ export const useKeyboard = () => {
         // Change delay of statistics modal if returning to board
         if (parsedGameState.hasPlayed && returningPlayer) {
           const timer = setTimeout(() => {
-            console.log('first');
             open('statistics');
           }, revealAnimationDuration - 600);
           return () => {
             clearTimeout(timer);
           };
         } else if (!parsedGameState.hasPlayed) {
-          console.log('second pre timer');
           const timer = setTimeout(() => {
             console.log('second');
             open('statistics');
@@ -683,7 +681,6 @@ export const useKeyboard = () => {
         }
       } else {
         // show modal
-        console.log('here lies the problem????');
         const timer = setTimeout(() => {
           console.log('third');
           open('statistics');

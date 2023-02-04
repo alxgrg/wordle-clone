@@ -28,18 +28,20 @@ const MainHeader = () => {
           </a>
         </div>
         <div className='grow basis-1/2 text-left md:text-center'>
-          <h1 className='font-serif text-2xl font-extrabold'>Wordle</h1>
+          <h1 className='inline-block font-serif text-2xl font-extrabold leading-6 min-[415px]:block'>
+            Wordle
+          </h1>
         </div>
 
         <div className='flex justify-end md:w-[120px]'>
-          <button onClick={() => modalCtx?.open('help')}>
-            <QuestionMarkCircleIcon className='h-6 w-6 text-black dark:text-white' />
+          <button className='px-1' onClick={() => modalCtx?.open('help')}>
+            <QuestionMarkCircleIcon className='h-6 w-6 text-black dark:text-white md:h-7 md:w-7' />
           </button>
-          <button onClick={() => modalCtx?.open('statistics')}>
-            <ChartBarIcon className='h-6 w-6 text-black dark:text-white' />
+          <button className='px-1' onClick={() => modalCtx?.open('statistics')}>
+            <ChartBarIcon className='h-6 w-6 text-black dark:text-white md:h-7 md:w-7' />
           </button>
-          <button onClick={() => modalCtx?.open('settings')}>
-            <Cog6ToothIcon className='h-6 w-6 text-black dark:text-white' />
+          <button className='px-1' onClick={() => modalCtx?.open('settings')}>
+            <Cog6ToothIcon className='h-6 w-6 text-black dark:text-white md:h-7 md:w-7' />
           </button>
         </div>
       </header>
