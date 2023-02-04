@@ -4,6 +4,7 @@ const GithubLogo = () => {
       xmlns='http://www.w3.org/2000/svg'
       className='h-6 w-6 fill-black hover:fill-black/70 dark:fill-white dark:hover:fill-white/70  md:h-7 md:w-7'
       viewBox='0 0 100 100'
+      aria-hidden='true'
     >
       <path
         fillRule='evenodd'

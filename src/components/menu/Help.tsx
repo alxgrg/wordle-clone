@@ -181,7 +181,10 @@ const Help = () => {
             </i>
           </p>
           <div className='mt-2'>
-            <a href='https://github.com/alxgrg/wordle-clone'>
+            <a
+              aria-label='Github'
+              href='https://github.com/alxgrg/wordle-clone'
+            >
               <GithubLogo />
             </a>
           </div>

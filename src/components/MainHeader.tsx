@@ -16,10 +16,7 @@ const MainHeader = () => {
     <>
       <header className='flex h-[40px] w-full items-center justify-between border-b border-gray-300 px-5 dark:border-zinc-700 min-[415px]:h-[66px]'>
         <div className='flex justify-start pr-4 md:w-[120px]'>
-          <a
-            className='hover:text-red-500'
-            href='https://github.com/alxgrg/wordle-clone'
-          >
+          <a aria-label='Github' href='https://github.com/alxgrg/wordle-clone'>
             {/* <Image
               alt='github'
               src='/github-mark.svg'
