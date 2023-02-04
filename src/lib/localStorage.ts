@@ -34,7 +34,6 @@ export const loadGame = () => {
       const sameDay = datesAreOnSameDay(lastPlayed);
       if (!sameDay) {
         removeItemFromLocalStorage('gameState');
-        console.log('clearing local storage, not same day');
       }
     }
     return parsedGameState;

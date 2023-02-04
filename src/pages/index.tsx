@@ -37,7 +37,10 @@ export default function Home() {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <main className='absolute top-0 left-0 h-full w-full min-[500px]:overflow-y-hidden'>
+      <main
+        id='application'
+        className='absolute top-0 left-0 h-full w-full min-[500px]:overflow-y-hidden'
+      >
         <div className='relative h-full'>
           <SettingsProvider>
             <StatisticsProvider>

@@ -20,9 +20,13 @@ const ModalProvider = ({ children }: { children: ReactNode }) => {
   const [modalState, setModalState] = useState({ isOpen: false, content: '' });
   const close = useCallback(() => {
     setModalState({ isOpen: false, content: '' });
+    const app = document.getElementById('application');
+    app?.setAttribute('aria-hidden', 'false');
   }, []);
   const open = useCallback((content: string) => {
     setModalState({ isOpen: true, content });
+    const app = document.getElementById('application');
+    app?.setAttribute('aria-hidden', 'true');
   }, []);
 
   const contextValue = useMemo(
