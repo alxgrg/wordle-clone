@@ -71,7 +71,12 @@ const GridTile = ({
 
   // Change delay for win animation
   let adjustedDelay = delay * 2;
-  if (statusClasses === 'win' || statusClasses === 'win-colorblind') {
+  if (
+    statusClasses === 'win' ||
+    statusClasses === 'win-colorblind' ||
+    statusClasses === 'win-dark' ||
+    statusClasses === 'win-colorblind-dark'
+  ) {
     adjustedDelay = delay;
   }
   let extraDelay = delay * letterDelay;
@@ -90,6 +95,17 @@ const GridTile = ({
     }
   };
 
+  // let className;
+  // if (statusClasses && !hasPlayed && !disabled) {
+  //   if (statusClasses.slice(0, 3) === 'win') {
+  //     className = `${statusClasses} win-animation`;
+  //   }
+  // } else if (statusClasses) {
+  //   className = statusClasses;
+  // } else {
+  //   className = 'border-zinc-700';
+  // }
+
   return (
     <div className={`block ${letter ? 'animate-popIn' : ''}`}>
       <div
@@ -101,10 +117,14 @@ const GridTile = ({
             !hasPlayed &&
             !disabled) ||
           (statusClasses &&
+            statusClasses === 'win-dark' &&
+            !hasPlayed &&
+            !disabled) ||
+          (statusClasses &&
             statusClasses === 'win-colorblind' &&
             !hasPlayed &&
             !disabled)
-            ? statusClasses + ' winAnimation'
+            ? statusClasses + ' win-animation'
             : statusClasses
             ? statusClasses
             : 'border-zinc-700'

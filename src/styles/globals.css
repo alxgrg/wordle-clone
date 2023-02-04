@@ -92,7 +92,7 @@ a {
   --status: rgb(63 63 70);
 }
 
-.winAnimation {
+.win-animation {
   animation: bounce 1000ms ease forwards;
 }
 
