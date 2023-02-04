@@ -32,8 +32,11 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Wordle</title>
-        <meta name='description' content='Wordle clone' />
+        <title>Wordle Clone - Wordle recreated with NextJS</title>
+        <meta
+          name='description'
+          content='A clone of the word guessing game Wordle. Built with NextJS, Typescript and Tailwind'
+        />
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
