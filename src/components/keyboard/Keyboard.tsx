@@ -22,8 +22,8 @@ const Keyboard = ({
   const { highContrast } = settings;
 
   return (
-    <div className='font-bold text-sm h-[200px] mx-2'>
-      <div className='flex mb-2'>
+    <div className='mx-2 h-[200px] text-sm font-bold'>
+      <div className='mb-2 flex'>
         {rows[0].map((letter) => {
           return (
             <Key
@@ -39,7 +39,7 @@ const Keyboard = ({
           );
         })}
       </div>
-      <div className='flex mb-2'>
+      <div className='mb-2 flex [&>*:nth-child(10)]:mr-0'>
         <div className='grow-[0.5]' />
         {rows[1].map((letter) => (
           <Key
