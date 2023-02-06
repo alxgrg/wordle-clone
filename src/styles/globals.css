@@ -96,29 +96,6 @@ a {
   animation: bounce 1000ms ease forwards;
 }
 
-@keyframes flip {
-  0% {
-    @apply bg-custom-black;
-    @apply border-zinc-700;
-    transform: rotateX(0);
-  }
-  45% {
-    @apply bg-custom-black;
-    @apply border-zinc-700;
-    transform: rotateX(90deg);
-  }
-  55% {
-    transform: rotateX(90deg);
-    border-color: var(--status);
-    background: var(--status);
-  }
-  100% {
-    transform: rotateX(0);
-    border-color: var(--status);
-    background: var(--status);
-  }
-}
-
 @keyframes bounce {
   0%,
   20% {
@@ -189,33 +166,10 @@ a {
 .modal-appear-active {
   @apply animate-slideIn;
 }
-/* .modal-enter {
-  @apply animate-slideIn;
-}
-.modal-enter-active {
-  @apply animate-slideIn;
-} */
+
 .modal-exit {
   @apply animate-slideOut;
 }
 .modal-exit-active {
   @apply animate-slideOut;
 }
-
-/* .alert-appear {
-  opacity: 0;
-  transform: scale(0.9);
-}
-.alert-appear-active {
-  opacity: 1;
-  transform: translateX(0);
-  transition: opacity 300ms, transform 300ms;
-}
-.alert-exit {
-  opacity: 1;
-}
-.alert-exit-active {
-  opacity: 0;
-  transform: scale(0.9);
-  transition: opacity 300ms, transform 300ms;
-} */

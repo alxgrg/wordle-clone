@@ -95,17 +95,6 @@ const GridTile = ({
     }
   };
 
-  // let className;
-  // if (statusClasses && !hasPlayed && !disabled) {
-  //   if (statusClasses.slice(0, 3) === 'win') {
-  //     className = `${statusClasses} win-animation`;
-  //   }
-  // } else if (statusClasses) {
-  //   className = statusClasses;
-  // } else {
-  //   className = 'border-zinc-700';
-  // }
-
   return (
     <div className={`block ${letter ? 'animate-popIn' : ''}`}>
       <div
@@ -127,15 +116,15 @@ const GridTile = ({
             ? statusClasses + ' win-animation'
             : statusClasses
             ? statusClasses
-            : 'border-zinc-700'
+            : 'border-custom-neutral-50 dark:border-custom-neutral-dark-200'
         }`}
       >
         <div
           style={statusClasses ? extraStyles : undefined}
-          className={`box-border inline-flex w-full items-center justify-center border-2 border-zinc-700 align-middle text-[2rem] font-bold uppercase leading-4 text-black before:inline-block before:pb-[100%] dark:text-white ${
+          className={`box-border inline-flex w-full items-center justify-center border-2 align-middle text-[2rem] font-bold uppercase leading-4 text-black before:inline-block before:pb-[100%] dark:text-white ${
             letter
-              ? 'border-zinc-500 dark:border-zinc-600'
-              : 'border-zinc-400 dark:border-zinc-700'
+              ? 'border-custom-neutral-100 dark:border-custom-neutral-dark-100'
+              : 'border-custom-neutral-50 dark:border-custom-neutral-dark-200'
           }`}
         >
           {letter}

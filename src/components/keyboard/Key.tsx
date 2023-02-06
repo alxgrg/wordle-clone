@@ -21,10 +21,10 @@ const Key = ({
   isRevealing: boolean;
 }) => {
   const [statusClasses, setStatusClasses] = useState(
-    'dark:bg-neutral-500 bg-neutral-300'
+    'dark:bg-custom-neutral-dark-50 bg-custom-neutral-50'
   );
   const [hcStatusClasses, setHcStatusClasses] = useState(
-    'dark:bg-neutral-500 bg-neutral-300'
+    'dark:bg-custom-neutral-dark-50 bg-custom-neutral-50'
   );
 
   const [letterDelay, setLetterDelay] = useState(1800);

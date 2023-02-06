@@ -42,35 +42,35 @@ const Help = () => {
                   style={{
                     animation: `FlipIn 300ms ease-in 300ms forwards, FlipOut 300ms ease-in 300ms forwards`,
                   }}
-                  className={`box-border inline-flex w-full items-center justify-center border-2 border-zinc-700 align-middle text-[1.6rem] font-bold uppercase leading-4 text-black before:inline-block before:pb-[100%] dark:text-white ${correct}`}
+                  className={`box-border inline-flex w-full items-center justify-center border-2 border-custom-neutral-100 align-middle text-[1.6rem] font-bold uppercase leading-4 text-black before:inline-block before:pb-[100%] dark:border-custom-neutral-dark-100 dark:text-white ${correct}`}
                 >
                   W
                 </div>
               </div>
               <div className='mr-1 inline-block h-8 w-8'>
                 <div
-                  className={`box-border inline-flex w-full items-center justify-center border-2 border-zinc-700 align-middle text-[1.6rem] font-bold uppercase leading-4 before:inline-block before:pb-[100%]`}
+                  className={`box-border inline-flex w-full items-center justify-center border-2 border-custom-neutral-100 align-middle text-[1.6rem] font-bold uppercase leading-4 before:inline-block before:pb-[100%] dark:border-custom-neutral-dark-100`}
                 >
                   E
                 </div>
               </div>
               <div className='mr-1 inline-block h-8 w-8'>
                 <div
-                  className={`box-border inline-flex w-full items-center justify-center border-2 border-zinc-700 align-middle text-[1.6rem] font-bold uppercase leading-4 before:inline-block before:pb-[100%]`}
+                  className={`box-border inline-flex w-full items-center justify-center border-2 border-custom-neutral-100 align-middle text-[1.6rem] font-bold uppercase leading-4 before:inline-block before:pb-[100%] dark:border-custom-neutral-dark-100`}
                 >
                   A
                 </div>
               </div>
               <div className='mr-1 inline-block h-8 w-8'>
                 <div
-                  className={`box-border inline-flex w-full items-center justify-center border-2 border-zinc-700 align-middle text-[1.6rem] font-bold uppercase leading-4 before:inline-block before:pb-[100%]`}
+                  className={`box-border inline-flex w-full items-center justify-center border-2 border-custom-neutral-100 align-middle text-[1.6rem] font-bold uppercase leading-4 before:inline-block before:pb-[100%] dark:border-custom-neutral-dark-100`}
                 >
                   R
                 </div>
               </div>
               <div className='mr-1 inline-block h-8 w-8'>
                 <div
-                  className={`box-border inline-flex w-full items-center justify-center border-2 border-zinc-700 align-middle text-[1.6rem] font-bold uppercase leading-4 before:inline-block before:pb-[100%]`}
+                  className={`box-border inline-flex w-full items-center justify-center border-2 border-custom-neutral-100 align-middle text-[1.6rem] font-bold uppercase leading-4 before:inline-block before:pb-[100%] dark:border-custom-neutral-dark-100`}
                 >
                   Y
                 </div>
@@ -82,7 +82,7 @@ const Help = () => {
             <div className='mt-2 mb-5'>
               <div className='mr-1 inline-block h-8 w-8'>
                 <div
-                  className={`box-border inline-flex w-full items-center justify-center border-2 border-zinc-700 align-middle text-[1.6rem] font-bold uppercase leading-4 before:inline-block before:pb-[100%]`}
+                  className={`box-border inline-flex w-full items-center justify-center border-2 border-custom-neutral-100 align-middle text-[1.6rem] font-bold uppercase leading-4 before:inline-block before:pb-[100%] dark:border-custom-neutral-dark-100`}
                 >
                   P
                 </div>
@@ -92,28 +92,28 @@ const Help = () => {
                   style={{
                     animation: `FlipIn 300ms ease-in 300ms forwards, FlipOut 300ms ease-in 300ms forwards`,
                   }}
-                  className={`box-border inline-flex w-full items-center justify-center border-2 border-zinc-700 align-middle text-[1.6rem] font-bold uppercase leading-4 before:inline-block before:pb-[100%] ${present}`}
+                  className={`box-border inline-flex w-full items-center justify-center border-2 border-custom-neutral-100 align-middle text-[1.6rem] font-bold uppercase leading-4 before:inline-block before:pb-[100%] dark:border-custom-neutral-dark-100 ${present}`}
                 >
                   I
                 </div>
               </div>
               <div className='mr-1 inline-block h-8 w-8'>
                 <div
-                  className={`box-border inline-flex w-full items-center justify-center border-2 border-zinc-700 align-middle text-[1.6rem] font-bold uppercase leading-4 before:inline-block before:pb-[100%]`}
+                  className={`box-border inline-flex w-full items-center justify-center border-2 border-custom-neutral-100 align-middle text-[1.6rem] font-bold uppercase leading-4 before:inline-block before:pb-[100%] dark:border-custom-neutral-dark-100`}
                 >
                   L
                 </div>
               </div>
               <div className='mr-1 inline-block h-8 w-8'>
                 <div
-                  className={`box-border inline-flex w-full items-center justify-center border-2 border-zinc-700 align-middle text-[1.6rem] font-bold uppercase leading-4 before:inline-block before:pb-[100%]`}
+                  className={`box-border inline-flex w-full items-center justify-center border-2 border-custom-neutral-100 align-middle text-[1.6rem] font-bold uppercase leading-4 before:inline-block before:pb-[100%] dark:border-custom-neutral-dark-100`}
                 >
                   L
                 </div>
               </div>
               <div className='mr-1 inline-block h-8 w-8'>
                 <div
-                  className={`box-border inline-flex w-full items-center justify-center border-2 border-zinc-700 align-middle text-[1.6rem] font-bold uppercase leading-4 before:inline-block before:pb-[100%]`}
+                  className={`box-border inline-flex w-full items-center justify-center border-2 border-custom-neutral-100 align-middle text-[1.6rem] font-bold uppercase leading-4 before:inline-block before:pb-[100%] dark:border-custom-neutral-dark-100`}
                 >
                   S
                 </div>
@@ -125,21 +125,21 @@ const Help = () => {
             <div className='mt-2 mb-5'>
               <div className='mr-1 inline-block h-8 w-8'>
                 <div
-                  className={`box-border inline-flex w-full items-center justify-center border-2 border-zinc-700 align-middle text-[1.6rem] font-bold uppercase leading-4 before:inline-block before:pb-[100%]`}
+                  className={`box-border inline-flex w-full items-center justify-center border-2 border-custom-neutral-100 align-middle text-[1.6rem] font-bold uppercase leading-4 before:inline-block before:pb-[100%] dark:border-custom-neutral-dark-100`}
                 >
                   V
                 </div>
               </div>
               <div className='mr-1 inline-block h-8 w-8'>
                 <div
-                  className={`box-border inline-flex w-full items-center justify-center border-2 border-zinc-700 align-middle text-[1.6rem] font-bold uppercase leading-4 before:inline-block before:pb-[100%]`}
+                  className={`box-border inline-flex w-full items-center justify-center border-2 border-custom-neutral-100 align-middle text-[1.6rem] font-bold uppercase leading-4 before:inline-block before:pb-[100%] dark:border-custom-neutral-dark-100`}
                 >
                   A
                 </div>
               </div>
               <div className='mr-1 inline-block h-8 w-8'>
                 <div
-                  className={`box-border inline-flex w-full items-center justify-center border-2 border-zinc-700 align-middle text-[1.6rem] font-bold uppercase leading-4 before:inline-block before:pb-[100%]`}
+                  className={`box-border inline-flex w-full items-center justify-center border-2 border-custom-neutral-100 align-middle text-[1.6rem] font-bold uppercase leading-4 before:inline-block before:pb-[100%] dark:border-custom-neutral-dark-100`}
                 >
                   G
                 </div>
@@ -149,14 +149,14 @@ const Help = () => {
                   style={{
                     animation: `FlipIn 300ms ease-in 300ms forwards, FlipOut 300ms ease-in 300ms forwards`,
                   }}
-                  className={`${absent} box-border inline-flex w-full items-center justify-center border-2 border-zinc-700 align-middle text-[1.6rem] font-bold uppercase leading-4 before:inline-block before:pb-[100%]`}
+                  className={`${absent} box-border inline-flex w-full items-center justify-center border-2 border-custom-neutral-100 align-middle text-[1.6rem] font-bold uppercase leading-4 before:inline-block before:pb-[100%] dark:border-custom-neutral-dark-100`}
                 >
                   U
                 </div>
               </div>
               <div className='mr-1 inline-block h-8 w-8'>
                 <div
-                  className={`box-border inline-flex w-full items-center justify-center border-2 border-zinc-700 align-middle text-[1.6rem] font-bold uppercase leading-4 before:inline-block before:pb-[100%]`}
+                  className={`box-border inline-flex w-full items-center justify-center border-2 border-custom-neutral-100 align-middle text-[1.6rem] font-bold uppercase leading-4 before:inline-block before:pb-[100%] dark:border-custom-neutral-dark-100`}
                 >
                   E
                 </div>

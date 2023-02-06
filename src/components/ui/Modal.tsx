@@ -51,7 +51,7 @@ const Modal = ({ children }: { children: ReactNode }) => {
   return createPortal(
     <div
       onClick={() => handleClose()}
-      className='fixed top-0 left-0 z-40 flex h-full w-full items-end justify-center bg-black/50 p-0 min-[500px]:items-center'
+      className='fixed top-0 left-0 z-40 flex h-full w-full items-end justify-center bg-white/50 p-0 dark:bg-black/50 min-[500px]:items-center'
     >
       <CSSTransition
         nodeRef={nodeRef}
@@ -71,7 +71,7 @@ const Modal = ({ children }: { children: ReactNode }) => {
             role='dialog'
             aria-modal={modalCtx?.modalState.isOpen}
             aria-label={modalCtx?.modalState.content}
-            className={`relative max-h-full w-full max-w-lg rounded bg-gray-200 dark:bg-custom-black max-[500px]:min-h-[75%] min-[500px]:w-[90%] ${exitClass}`}
+            className={`relative max-h-full w-full max-w-lg rounded border border-gray-50  bg-white shadow-2xl dark:border-neutral-900 dark:bg-custom-black max-[500px]:min-h-[75%] min-[500px]:w-[90%] ${exitClass}`}
           >
             <button
               ref={closeButtonRef}
