@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { wordList } from '../static/wordList';
 import satisfiesHardMode from '../lib/satisfiesHardMode';
 import { GameState, loadGame, saveToLocalStorage } from '../lib/localStorage';
@@ -34,8 +34,6 @@ const initialStats = {
   averageGuesses: 0,
 };
 
-let returningPlayer = false;
-
 export const useKeyboard = () => {
   const [currentGuess, setCurrentGuess] = useState('');
   const [board, setBoard] = useState(['', '', '', '', '', '']);
@@ -52,6 +50,8 @@ export const useKeyboard = () => {
   // const [statistics, setStatistics] = useState<Statistics>(initialStats);
 
   const [isNewPlayer, setIsNewPlayer] = useState(true);
+
+  const [returningPlayer, setReturningPlayer] = useState(false);
 
   const modalCtx = useContext(ModalContext);
   const { modalState, open, close } = useModal();
@@ -81,7 +81,7 @@ export const useKeyboard = () => {
     if (rawGameState) {
       const parsedGameState = JSON.parse(rawGameState) as GameState;
       if (parsedGameState.hasPlayed && firstRender.current) {
-        returningPlayer = true;
+        setReturningPlayer(true);
       }
     }
     if (firstRender.current) {
@@ -136,11 +136,17 @@ export const useKeyboard = () => {
   }, [modalCtx, setStatistics]);
 
   useEffect(() => {
-    if (gameState !== 'active') {
+    if (gameState === 'loss') {
       if (!returningPlayer) {
+        const timer = setTimeout(() => {
+          open('statistics');
+        }, revealAnimationDuration + 2600);
+        return () => {
+          clearTimeout(timer);
+        };
       }
     }
-  }, [gameState]);
+  }, [gameState, open, returningPlayer]);
 
   useEffect(() => {
     if (gameState !== 'active') {
@@ -170,7 +176,7 @@ export const useKeyboard = () => {
         };
       }
     }
-  }, [gameState, open]);
+  }, [gameState, open, returningPlayer]);
 
   // If win, save game state to local storage
   useEffect(() => {
@@ -273,7 +279,7 @@ export const useKeyboard = () => {
     return () => {
       clearTimeout(timer);
     };
-  }, [answer, board, currentGuess, currentRowIndex]);
+  }, [answer, board, currentGuess, currentRowIndex, returningPlayer]);
 
   // Add letter status for coloring keyboard keys
   const handleLetterStatus = (guessLetter: string, status: string) => {
